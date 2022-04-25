@@ -2,17 +2,18 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import httpErrors, { HttpError } from "http-errors";
+import { DataSource } from "typeorm";
 // import * as path from "path";
 import { env } from "./env";
+import * as path from "path";
 
-
+import AuthRoutes from "./routes/auth";
 const main = async () => {
   const app = express();
 
-
   app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
   app.use(cookieParser());
-
 
   /**
    * cors
@@ -43,26 +44,30 @@ const main = async () => {
   /**
    * typeORM connection
    */
-  // await createConnection({
-  //   type: "postgres",
-  //   host: env.db.host,
-  //   port: env.db.port,
-  //   database: env.db.databaseName,
-  //   username: env.db.username,
-  //   password: env.db.password,
-  //   logging: env.db.logging,
-  //   synchronize: env.db.synchronize,
-  //   entities: [User, Customer, Restaurant, Item, Order, OrderItem, Review],
-  //   ssl: {
-  //     rejectUnauthorized: false,
-  //   },
-  // });
+  const dataSource = new DataSource({
+    type: "postgres",
+    host: env.db.host,
+    port: env.db.port,
+    database: env.db.databaseName,
+    username: env.db.username,
+    password: env.db.password,
+    logging: env.db.logging,
+    synchronize: env.db.synchronize,
+    entities: [path.join(__dirname, "models/entities/") + "*"],
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  });
 
+  dataSource
+    .initialize()
+    .then(() => console.log("DataSource Inititlized"))
+    .catch((e) => console.log("Error initializing dataSource " + e));
   /**
    * Routes
    */
-  app.use("/", (_req,res)=>{res.send("hellow!!")});
-  
+
+  app.use("/api/auth", AuthRoutes);
 
   //not found route
   app.use((_req: Request, _res: Response, next: NextFunction) => {
