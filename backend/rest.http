@@ -1,12 +1,28 @@
-### api signup
+### visitor signup
 
 POST http://localhost:4000/api/auth/signup HTTP/1.1
 content-type: application/json
 
 {
-    "email": "hc@gmail.com",
-    "password": "hc"
+    "email": "shc@gmail.com",
+    "password": "shc",
+    "displayName":"Shreyas H C",
+    "role":"visitor"
 }
+
+### startup signup
+
+POST http://localhost:4000/api/auth/signup HTTP/1.1
+content-type: application/json
+
+{
+    "email": "ola@gmail.com",
+    "password": "ola",
+    "displayName":"Ola",
+    "website":"ola.com",
+    "role":"startup"
+}
+
 
 
 ### api login

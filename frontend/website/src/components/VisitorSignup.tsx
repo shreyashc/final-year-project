@@ -1,9 +1,7 @@
 import {
   Anchor,
   Button,
-  Checkbox,
   Container,
-  Group,
   Loader,
   Paper,
   PasswordInput,
@@ -14,47 +12,37 @@ import {
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../constants";
-import { AuthContext } from "../context/authContext";
 
 interface formData {
   email: string;
   password: string;
+  displayName: string;
 }
 
-function Login() {
-  const [loading, setLoading] = useState(false);
-
-  const { dispatch: authDispatch } = useContext(AuthContext);
+const VisitorSignup = () => {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const loginUser = async (values: formData) => {
     setLoading(true);
 
     form.clearErrors();
 
     try {
-      const res = await axios.post(BASE_URL + "api/auth/login", values);
+      const res = await axios.post(BASE_URL + "api/auth/signup", {
+        ...values,
+        role: "visitor",
+      });
       console.log(res);
-
       showNotification({
-        title: "Login Successful",
-        message: "you will be redirected soon.",
-        autoClose: 2000,
+        title: "Notification",
+        message: "Signup Successful",
+        autoClose: 1000,
         color: "green",
       });
-      authDispatch({
-        type: "LOGIN",
-        payload: {
-          userId: res.data.userId,
-          email: res.data.email,
-          role: res.data.role,
-          token: res.data.token,
-        },
-      });
-      navigate("/");
+      navigate("/login");
     } catch (error: any) {
       form.setFieldError(
         error.response.data.field,
@@ -68,11 +56,18 @@ function Login() {
     initialValues: {
       email: "",
       password: "",
+      displayName: "",
     },
 
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      email: (value) =>
+        value.length < 1
+          ? "Email is Required"
+          : /^\S+@\S+$/.test(value)
+          ? null
+          : "Invalid email",
       password: (value) => (value.length > 0 ? null : "Password is Required"),
+      displayName: (value) => (value.length > 0 ? null : "Name is Required"),
     },
   });
 
@@ -85,14 +80,21 @@ function Login() {
           fontWeight: 900,
         })}
       >
-        Welcome back to StartEzy!
+        Signup to StartEzy!
       </Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <form onSubmit={form.onSubmit((values) => loginUser(values))}>
           <TextInput
+            label="Name"
+            placeholder="Your Name"
+            mt="md"
+            {...form.getInputProps("displayName")}
+          />
+          <TextInput
             label="Email"
-            placeholder="Email"
+            placeholder="Your Email"
+            mt="md"
             {...form.getInputProps("email")}
           />
           <PasswordInput
@@ -101,25 +103,20 @@ function Login() {
             mt="md"
             {...form.getInputProps("password")}
           />
-          <Group position="apart" mt="md">
-            <Checkbox label="Remember me" />
-            <Anchor component={Link} to="/forgot-password" size="sm">
-              Forgot password?
-            </Anchor>
-          </Group>
+
           <Button fullWidth mt="xl" type="submit">
-            {loading ? <Loader color="white" variant="dots" /> : "Sign in"}
+            {loading ? <Loader color="white" variant="dots" /> : "Sign Up"}
           </Button>
         </form>
       </Paper>
       <Text color="dimmed" size="sm" align="center" mt={15}>
-        Do not have an account yet?{" "}
-        <Anchor component={Link} to="/signup">
-          Create an account
+        Already have an account ?{" "}
+        <Anchor component={Link} to="/login">
+          Login here.
         </Anchor>
       </Text>
     </Container>
   );
-}
+};
 
-export default Login;
+export default VisitorSignup;

@@ -13,15 +13,13 @@ const signup_post = async (
   _next: NextFunction
 ) => {
   try {
-    const { email, password: plainPassword } = req.body;
-
-    console.log({ email, plainPassword });
+    const { email, password: plainPassword, role, ...extraDetails } = req.body;
 
     const { savedUser, error } = await signUpUser(
       email,
       plainPassword,
-      "visitor",
-      {}
+      role || "visitor",
+      { ...extraDetails }
     );
     if (error || !savedUser) {
       throw error;
@@ -58,7 +56,12 @@ const login_post = async (req: Request, res: Response) => {
       maxAge: MAX_AGE * 1000,
     });
 
-    return res.json({ token });
+    return res.json({
+      token,
+      userId: user.id,
+      email: user.email,
+      role: user.role,
+    });
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);

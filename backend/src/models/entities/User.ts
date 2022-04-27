@@ -3,9 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Startup } from "./Startup";
+import { Visitor } from "./Visitor";
 
 @Entity()
 export class User extends BaseEntity {
@@ -19,7 +22,19 @@ export class User extends BaseEntity {
   password!: string;
 
   @Column()
-  role!: "admin" | "investor" | "visitor" | "incubator" | "jobseeker";
+  role!:
+    | "admin"
+    | "investor"
+    | "visitor"
+    | "incubator"
+    | "jobseeker"
+    | "startup";
+
+  @OneToOne(() => Visitor, (visitor) => visitor.user)
+  visitor: Visitor;
+
+  @OneToOne(() => Startup, (startup) => startup.user)
+  startup: Startup;
 
   @CreateDateColumn()
   createdAt: Date;
