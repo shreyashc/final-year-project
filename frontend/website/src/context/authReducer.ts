@@ -5,9 +5,13 @@ type ActionType = {
   payload: any;
 };
 
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+export const SAVED_STATE = "SAVED_STATE";
+
 export const authReducer = (state: AuthStateType, action: ActionType) => {
   switch (action.type) {
-    case "LOGIN":
+    case LOGIN:
       return {
         ...state,
 
@@ -17,7 +21,7 @@ export const authReducer = (state: AuthStateType, action: ActionType) => {
         role: action.payload.role,
         isLoggedIn: true,
       };
-    case "LOGOUT":
+    case LOGOUT:
       return {
         ...state,
 
@@ -27,14 +31,14 @@ export const authReducer = (state: AuthStateType, action: ActionType) => {
         role: "",
         isLoggedIn: false,
       };
-    case "SAVED_STATE":
+    case SAVED_STATE:
       return {
         ...state,
         userId: action.payload.userId,
         email: action.payload.email,
         token: action.payload.token,
         role: action.payload.role,
-        isLoggedIn: true,
+        isLoggedIn: action.payload.isLoggedIn,
       };
     default:
       return state;

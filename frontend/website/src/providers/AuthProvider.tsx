@@ -2,9 +2,7 @@ import React from "react";
 import { FC, PropsWithChildren, useReducer } from "react";
 import { AuthContext, initialAuthState } from "../context/authContext";
 import { authReducer } from "../context/authReducer";
-interface AuthProviderProps {
-  children?: React.ReactNode;
-}
+interface AuthProviderProps {}
 export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({
   children,
 }: any) => {
@@ -45,7 +43,6 @@ export const getSavedAppState = () => {
     const jsonValue = localStorage.getItem("user");
     return jsonValue ? JSON.parse(jsonValue) : initialAuthState;
   } catch (e) {
-    console.log(e);
     return initialAuthState;
   }
 };

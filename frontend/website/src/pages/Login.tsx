@@ -17,6 +17,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../constants";
+import { loginAction } from "../context/actionCreators";
 import { AuthContext } from "../context/authContext";
 
 interface formData {
@@ -45,15 +46,14 @@ function Login() {
         autoClose: 2000,
         color: "green",
       });
-      authDispatch({
-        type: "LOGIN",
-        payload: {
+      authDispatch(
+        loginAction({
           userId: res.data.userId,
           email: res.data.email,
           role: res.data.role,
           token: res.data.token,
-        },
-      });
+        })
+      );
       navigate("/");
     } catch (error: any) {
       form.setFieldError(
