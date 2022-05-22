@@ -25,4 +25,16 @@ export class Startup extends BaseEntity {
 
   @Column()
   userId!: number;
+
+  @Column({ nullable: true })
+  contactEmail!: string;
+
+  @Column({ nullable: true })
+  shortDesc!: string;
+
+  @Column({ nullable: true })
+  amountRaised!: string;
+
+  @Column({ nullable: true })
+  ytURL!: string;
 }

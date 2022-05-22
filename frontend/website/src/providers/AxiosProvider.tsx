@@ -8,7 +8,7 @@ interface AxiosProviderProps {
 
 let tokenInterceptor: any = null;
 
-const setClientToken = (token: string) => {
+export const setClientToken = (token: string) => {
   tokenInterceptor = apiClient.interceptors.request.use(function (config) {
     if (config && config.headers) {
       config.headers["Authorization"] = `Bearer ${token}`;

@@ -31,7 +31,7 @@ const StartupSignup = () => {
     form.clearErrors();
 
     try {
-      const res = await axios.post(BASE_URL + "api/auth/signup", {
+      const res = await axios.post(BASE_URL + "auth/signup", {
         ...values,
         role: "startup",
       });

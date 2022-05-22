@@ -6,6 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { NotificationsProvider } from "@mantine/notifications";
 import { MantineProvider } from "@mantine/core";
+import { setClientToken } from "./providers/AxiosProvider";
+
+const jsonValue = localStorage.getItem("user");
+const user = jsonValue ? JSON.parse(jsonValue) : null;
+if (user) {
+  setClientToken(user.token);
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

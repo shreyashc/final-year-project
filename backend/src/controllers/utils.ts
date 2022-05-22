@@ -1,7 +1,7 @@
 import { env } from "../env";
 import jwt from "jsonwebtoken";
 import argon2 from "argon2";
-import { Startup, User, Visitor } from "../models/entities";
+import { Startup, User, Visitor, StartupDetails } from "../models/entities";
 
 // import firebase from "../firebase/config";
 // import { v4 as uuid } from "uuid";

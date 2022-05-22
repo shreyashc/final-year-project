@@ -8,12 +8,14 @@
     "watch": "tsc -w",
     "postinstall": "tsc",
     "start": "node dist/server.js",
-    "dev": "nodemon dist/server.js",
+    "dev2": "nodemon dist/server.js",
+    "dev": "concurrently \"yarn:watch\" \"yarn:dev2\"",
     "deploy": "git subtree push --prefix=backend heroku master"
   },
   "dependencies": {
     "argon2": "^0.28.5",
     "bcrypt": "^5.0.1",
+    "concurrently": "^7.2.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",

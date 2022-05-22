@@ -14,9 +14,6 @@ const Home = () => {
   }
   return (
     <div>
-      <Link to="/login">Login</Link>
-      <hr />
-      <Link to="/signup">Signup</Link>
       <div>
         <p>Email:{authState.email}</p>
         <p>Role:{authState.role}</p>

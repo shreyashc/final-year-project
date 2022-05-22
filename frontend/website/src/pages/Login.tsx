@@ -37,7 +37,7 @@ function Login() {
     form.clearErrors();
 
     try {
-      const res = await axios.post(BASE_URL + "api/auth/login", values);
+      const res = await axios.post(BASE_URL + "auth/login", values);
       console.log(res);
 
       showNotification({
