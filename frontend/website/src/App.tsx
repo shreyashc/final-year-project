@@ -1,39 +1,36 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Footer from "./components/Footer";
+import InvestorSignup from "./components/InverstorSignup";
 import Navbar from "./components/Navbar";
+import StartupSignup from "./components/StartupSignup";
+import VisitorSignup from "./components/VisitorSignup";
+import { footerLinks, navLinks } from "./constants";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
+import Investors from "./pages/Investors";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { AuthProvider } from "./providers/AuthProvider";
 import AxiosProvider from "./providers/AxiosProvider";
 
 function App() {
-  const l = [
-    {
-      link: "/login",
-      label: "Login",
-    },
-    {
-      link: "/signup",
-      label: "Signup",
-    },
-    {
-      link: "/startup/dashboard",
-      label: "Dashboard",
-    },
-  ];
   return (
     <AuthProvider>
       <AxiosProvider>
         <div className="App">
-          <Navbar links={l} />
+          <Navbar links={navLinks} />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="startup/dashboard" element={<Dashboard />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup/startup" element={<StartupSignup />} />
+            <Route path="/signup/visitor" element={<VisitorSignup />} />
+            <Route path="/signup/investor" element={<InvestorSignup />} />
+            <Route path="/startup/dashboard" element={<Dashboard />} />
+            <Route path="/investors" element={<Investors />} />
           </Routes>
+          <Footer data={footerLinks} />
         </div>
       </AxiosProvider>
     </AuthProvider>

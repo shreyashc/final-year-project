@@ -1,16 +1,14 @@
-import { useState } from "react";
-import StartupSignup from "../components/StartupSignup";
-import VisitorSignup from "../components/VisitorSignup";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [cur, setCur] = useState("visitor");
+  const nav = useNavigate();
   return (
     <div>
       <div>
-        <button onClick={() => setCur("visitor")}>Visitor</button>
-        <button onClick={() => setCur("startup")}>Startup</button>
+        <button onClick={() => nav("/signup/visitor")}>Visitor</button>
+        <button onClick={() => nav("/signup/startup")}>Startup</button>
+        <button onClick={() => nav("/signup/investor")}>Investor</button>
       </div>
-      {cur === "visitor" ? <VisitorSignup /> : <StartupSignup />}
     </div>
   );
 };

@@ -44,9 +44,11 @@ const VisitorSignup = () => {
       });
       navigate("/login");
     } catch (error: any) {
+      // console.log(error.response.data.error.field);
+
       form.setFieldError(
-        error.response.data.field,
-        error.response.data.message
+        error.response.data.error.field,
+        error.response.data.error.message
       );
     } finally {
       setLoading(false);

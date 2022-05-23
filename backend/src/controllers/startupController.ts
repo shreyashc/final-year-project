@@ -17,9 +17,9 @@ const dashboad_get = async (
 
     if (!startupDetails) throw new httpErrors.NotFound();
 
-    //  delete startupDetails.password;
+    const { password, ...startupDetailsDto } = startupDetails;
 
-    return res.json(startupDetails);
+    return res.json(startupDetailsDto);
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);

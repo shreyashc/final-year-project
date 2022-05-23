@@ -1,7 +1,7 @@
 import { env } from "../env";
 import jwt from "jsonwebtoken";
 import argon2 from "argon2";
-import { Startup, User, Visitor, StartupDetails } from "../models/entities";
+import { Investor, Startup, User, Visitor } from "../models/entities";
 
 // import firebase from "../firebase/config";
 // import { v4 as uuid } from "uuid";
@@ -34,12 +34,6 @@ const generateToken = (
   });
 };
 
-/**
- * @param  {string} email
- * @param  {string} plainPassword
- * @param  {"customer"|"restaurant"} role
- * @param  {{restaurantDet?:restaurantDetIntf;customerDet?:customerDetInt;}} options
- */
 const signUpUser = async (
   email: string,
   plainPassword: string,
@@ -53,6 +47,11 @@ const signUpUser = async (
 
     if (role === "visitor") {
       await Visitor.create({
+        displayName: options.displayName,
+        userId: user.id,
+      }).save();
+    } else if (role === "investor") {
+      await Investor.create({
         displayName: options.displayName,
         userId: user.id,
       }).save();
@@ -73,7 +72,7 @@ const signUpUser = async (
     if (err?.code === "23505") {
       return {
         savedUser: null,
-        error: { message: "Email already registered" },
+        error: { field: "email", message: "Email already registered" },
       };
     }
     return { savedUser: null, error: err };

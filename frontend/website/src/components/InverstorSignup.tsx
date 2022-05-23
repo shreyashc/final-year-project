@@ -22,7 +22,7 @@ interface formData {
   displayName: string;
 }
 
-const StartupSignup = () => {
+const InvestorSignup = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const loginUser = async (values: formData) => {
@@ -33,7 +33,7 @@ const StartupSignup = () => {
     try {
       const res = await axios.post(BASE_URL + "auth/signup", {
         ...values,
-        role: "startup",
+        role: "investor",
       });
       console.log(res);
       showNotification({
@@ -57,7 +57,6 @@ const StartupSignup = () => {
       email: "",
       password: "",
       displayName: "",
-      website: "",
     },
 
     validate: {
@@ -69,14 +68,6 @@ const StartupSignup = () => {
           : "Invalid email",
       password: (value) => (value.length > 0 ? null : "Password is Required"),
       displayName: (value) => (value.length > 0 ? null : "Name is Required"),
-      website: (value) =>
-        value.length < 1
-          ? "Website is Required"
-          : /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/.test(
-              value
-            )
-          ? null
-          : "Invalid website",
     },
   });
 
@@ -96,19 +87,13 @@ const StartupSignup = () => {
         <form onSubmit={form.onSubmit((values) => loginUser(values))}>
           <TextInput
             label="Name"
-            placeholder="Company Name"
+            placeholder="Your Name"
             mt="md"
             {...form.getInputProps("displayName")}
           />
           <TextInput
-            label="Website"
-            placeholder="Company Website"
-            mt="md"
-            {...form.getInputProps("website")}
-          />
-          <TextInput
             label="Email"
-            placeholder="Company Email"
+            placeholder="Your Email"
             mt="md"
             {...form.getInputProps("email")}
           />
@@ -134,4 +119,4 @@ const StartupSignup = () => {
   );
 };
 
-export default StartupSignup;
+export default InvestorSignup;

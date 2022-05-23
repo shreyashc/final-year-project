@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Investor } from "./Inverstor";
 import { Startup } from "./Startup";
 import { Visitor } from "./Visitor";
 
@@ -19,7 +20,7 @@ export class User extends BaseEntity {
   email!: string;
 
   @Column()
-  password?: string;
+  password!: string;
 
   @Column()
   role!:
@@ -33,6 +34,9 @@ export class User extends BaseEntity {
   @OneToOne(() => Visitor, (visitor) => visitor.user)
   visitor: Visitor;
 
+  @OneToOne(() => Investor, (innverstor) => innverstor.user)
+  investor: Investor;
+
   @OneToOne(() => Startup, (startup) => startup.user)
   startup: Startup;
 
@@ -41,9 +45,4 @@ export class User extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  toJSON() {
-    delete this.password;
-    return this;
-  }
 }
