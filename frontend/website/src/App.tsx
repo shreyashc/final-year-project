@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Investors from "./pages/Investors";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Startups from "./pages/Startups";
 import { AuthProvider } from "./providers/AuthProvider";
 import AxiosProvider from "./providers/AxiosProvider";
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/signup/investor" element={<InvestorSignup />} />
             <Route path="/startup/dashboard" element={<Dashboard />} />
             <Route path="/investors" element={<Investors />} />
+            <Route path="/startups" element={<Startups />} />
           </Routes>
           <Footer data={footerLinks} />
         </div>
