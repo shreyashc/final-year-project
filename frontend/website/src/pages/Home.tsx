@@ -21,7 +21,6 @@ const Home = () => {
         <p>isLoggedIn:{authState.isLoggedIn ? "YES" : "No"}</p>
         <button onClick={makeRequest}>makeRequest</button>
         <button onClick={logout}>Logout</button>
-
         <Link to={"/investors"}>
           <h2>See all invertors</h2>
         </Link>

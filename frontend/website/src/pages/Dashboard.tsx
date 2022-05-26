@@ -8,7 +8,7 @@ import {
   Text,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { ExternalLink } from "tabler-icons-react";
+import { ExternalLink, Mail } from "tabler-icons-react";
 import { apiClient } from "../api/client";
 import StatsGrid from "../components/StatsGrid";
 
@@ -54,6 +54,11 @@ const Dashboard = () => {
           <Anchor href={sd?.startup.website} target="_blank">
             {sd?.startup.website} <ExternalLink size={15} />
           </Anchor>
+        </Text>
+        <Text size="md">
+          <a href={`mailto:${sd?.startup.contactEmail}`}>
+            {sd?.startup.contactEmail}
+          </a>
         </Text>
       </div>
       <SimpleGrid
