@@ -1,5 +1,4 @@
 import { Avatar, Button, createStyles, Group, Text } from "@mantine/core";
-
 import { At, Location, MessageDots, UserPlus } from "tabler-icons-react";
 
 const useStyles = createStyles((theme) => ({

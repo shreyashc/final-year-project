@@ -145,14 +145,14 @@ export default function Footer({ data }: FooterLinksProps) {
         <div className={classes.logo}>
           <Logo />
           <Text size="xs" color="dimmed" className={classes.description}>
-            Build fully functional accessible web applications faster than ever
+            Find new Investors for yout startup faster than ever
           </Text>
         </div>
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>
         <Text color="dimmed" size="sm">
-          © 2020 StartEzy. All rights reserved.
+          © 2022 StartEzy. All rights reserved.
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>

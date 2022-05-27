@@ -37,7 +37,7 @@ const main = async () => {
         return callback(null, true);
       },
       credentials: true,
-      methods: ["POST", "PATCH", "GET", "OPTIONS", "HEAD", "DELETE"],
+      methods: ["POST", "PATCH", "PUT", "GET", "OPTIONS", "HEAD", "DELETE"],
     })
   );
 

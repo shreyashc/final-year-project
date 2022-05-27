@@ -1,5 +1,7 @@
 import {
   Anchor,
+  Avatar,
+  Button,
   Center,
   Container,
   Group,
@@ -8,7 +10,8 @@ import {
   Text,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { ExternalLink, Mail } from "tabler-icons-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ExternalLink } from "tabler-icons-react";
 import { apiClient } from "../api/client";
 import StatsGrid from "../components/StatsGrid";
 
@@ -16,6 +19,7 @@ const Dashboard = () => {
   const [sd, setStartupDetails] = useState<startupDetails>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const nav = useNavigate();
 
   const getDetails = () => {
     setLoading(true);
@@ -47,15 +51,29 @@ const Dashboard = () => {
   return (
     <Container size="md" mt={20}>
       <div>
-        <Text style={{ fontSize: "50px" }} weight={900}>
-          {sd?.startup.displayName}
-        </Text>
+        <Group style={{ justifyContent: "space-between" }}>
+          <Group spacing="md">
+            <Avatar src={sd?.startup.logoURL} radius="xl" alt="logo" />
+            <Text style={{ fontSize: "50px" }} weight={900}>
+              {sd?.startup.displayName}
+            </Text>
+          </Group>
+          <Button
+            variant="subtle"
+            size="xl"
+            onClick={() => {
+              nav("/startup/edit-details");
+            }}
+          >
+            Edit info
+          </Button>
+        </Group>
         <Text size="md">
           <Anchor href={sd?.startup.website} target="_blank">
             {sd?.startup.website} <ExternalLink size={15} />
           </Anchor>
         </Text>
-        <Text size="md">
+        <Text size="md" mb={25}>
           <a href={`mailto:${sd?.startup.contactEmail}`}>
             {sd?.startup.contactEmail}
           </a>
@@ -76,7 +94,8 @@ const Dashboard = () => {
             style={{ minHeight: "258px", width: "100%" }}
             src={
               sd &&
-              `https://www.youtube.com/embed/${sd?.startup.ytURL.slice(
+              sd?.startup?.ytURL &&
+              `https://www.youtube.com/embed/${sd?.startup?.ytURL.slice(
                 sd?.startup.ytURL.length - 11
               )}`
             }
@@ -126,7 +145,7 @@ const stats = [
     diff: -13,
   },
   {
-    title: "Coupons usage",
+    title: "Amount Raised",
     value: "745",
     diff: 18,
   },

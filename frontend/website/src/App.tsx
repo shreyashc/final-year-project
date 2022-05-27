@@ -7,6 +7,7 @@ import StartupSignup from "./components/StartupSignup";
 import VisitorSignup from "./components/VisitorSignup";
 import { footerLinks, navLinks } from "./constants";
 import Dashboard from "./pages/Dashboard";
+import EditStrtupDetails from "./pages/EditStrtupDetails";
 import Home from "./pages/Home";
 import Investors from "./pages/Investors";
 import Login from "./pages/Login";
@@ -29,6 +30,10 @@ function App() {
             <Route path="/signup/visitor" element={<VisitorSignup />} />
             <Route path="/signup/investor" element={<InvestorSignup />} />
             <Route path="/startup/dashboard" element={<Dashboard />} />
+            <Route
+              path="/startup/edit-details"
+              element={<EditStrtupDetails />}
+            />
             <Route path="/investors" element={<Investors />} />
             <Route path="/startups" element={<Startups />} />
           </Routes>

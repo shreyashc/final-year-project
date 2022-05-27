@@ -22,7 +22,7 @@ const Home = () => {
         <button onClick={makeRequest}>makeRequest</button>
         <button onClick={logout}>Logout</button>
         <Link to={"/investors"}>
-          <h2>See all invertors</h2>
+          <h2>See all investors</h2>
         </Link>
         <Link to={"/startups"}>
           <h2>See all startups</h2>
