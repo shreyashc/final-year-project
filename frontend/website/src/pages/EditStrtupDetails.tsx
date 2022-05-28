@@ -6,7 +6,6 @@ import {
   Container,
   Group,
   Loader,
-  LoadingOverlay,
   Paper,
   Text,
   Textarea,
@@ -16,7 +15,7 @@ import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { apiClient } from "../api/client";
-import { startupDetails } from "./Dashboard";
+import { startupDetails } from "./StartupDashboard";
 
 const EditStrtupDetails = () => {
   const [sd, setStartupDetails] = useState<startupDetails>();
@@ -118,6 +117,8 @@ const EditStrtupDetails = () => {
       website: "",
       amountRaised: "",
       ytURL: "",
+      revenue: 0,
+      profit: 0,
     },
   });
 
@@ -223,6 +224,21 @@ const EditStrtupDetails = () => {
               {...form.getInputProps("amountRaised")}
               mt={15}
             />
+            <TextInput
+              required
+              label="Revenue"
+              placeholder="Revenue"
+              {...form.getInputProps("revenue")}
+              mt={15}
+            />
+            <TextInput
+              required
+              label="Profit"
+              placeholder="Profit"
+              {...form.getInputProps("profit")}
+              mt={15}
+            />
+
             <Button
               type="submit"
               variant="light"

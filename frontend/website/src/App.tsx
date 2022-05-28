@@ -9,9 +9,11 @@ import { footerLinks, navLinks } from "./constants";
 import Dashboard from "./pages/Dashboard";
 import EditStrtupDetails from "./pages/EditStrtupDetails";
 import Home from "./pages/Home";
+import InvestorDashboard from "./pages/InvestorDashboard";
 import Investors from "./pages/Investors";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import StartupDashboard from "./pages/StartupDashboard";
 import Startups from "./pages/Startups";
 import { AuthProvider } from "./providers/AuthProvider";
 import AxiosProvider from "./providers/AxiosProvider";
@@ -26,10 +28,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/signup/startup" element={<StartupSignup />} />
             <Route path="/signup/visitor" element={<VisitorSignup />} />
             <Route path="/signup/investor" element={<InvestorSignup />} />
-            <Route path="/startup/dashboard" element={<Dashboard />} />
+            <Route path="/startup/dashboard" element={<StartupDashboard />} />
+            <Route path="/investor/dashboard" element={<InvestorDashboard />} />
             <Route
               path="/startup/edit-details"
               element={<EditStrtupDetails />}

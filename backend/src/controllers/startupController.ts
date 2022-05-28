@@ -47,6 +47,8 @@ const details_update = async (
       "website",
       "amountRaised",
       "ytURL",
+      "revenue",
+      "profit",
     ]);
 
     if (!startupDetails) {

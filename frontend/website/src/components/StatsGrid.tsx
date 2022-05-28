@@ -21,12 +21,20 @@ const useStyles = createStyles((theme) => ({
 
 interface StatsGridProps {
   data: { title: string; value: string; diff: number }[];
+  revenue: number | undefined;
+  profit: number | undefined;
+  amountRaised: string | undefined;
 }
 
-export default function StatsGrid({ data }: StatsGridProps) {
+export default function StatsGrid({
+  data,
+  revenue,
+  amountRaised,
+  profit,
+}: StatsGridProps) {
   const { classes } = useStyles();
-  const stats = data.map((stat) => {
-    const DiffIcon = stat.diff > 0 ? ArrowUpRight : ArrowDownRight;
+  const stats = data.map((stat, idx) => {
+    const DiffIcon = 1 > 0 ? ArrowUpRight : ArrowDownRight;
 
     return (
       <Paper withBorder p="md" radius="md" key={stat.title}>
@@ -42,14 +50,14 @@ export default function StatsGrid({ data }: StatsGridProps) {
               {stat.title}
             </Text>
             <Text weight={700} size="xl">
-              {stat.value}
+              {idx === 0 ? revenue : idx === 1 ? profit : amountRaised}
             </Text>
           </div>
           <ThemeIcon
             color="gray"
             variant="light"
             sx={(theme) => ({
-              color: stat.diff > 0 ? theme.colors.teal[6] : theme.colors.red[6],
+              color: 1 > 0 ? theme.colors.teal[6] : theme.colors.red[6],
             })}
             size={38}
             radius="md"
@@ -57,16 +65,6 @@ export default function StatsGrid({ data }: StatsGridProps) {
             <DiffIcon size={28} />
           </ThemeIcon>
         </Group>
-        <Text color="dimmed" size="sm" mt="md">
-          <Text
-            component="span"
-            color={stat.diff > 0 ? "teal" : "red"}
-            weight={700}
-          >
-            {stat.diff}%
-          </Text>{" "}
-          {stat.diff > 0 ? "increase" : "decrease"} compared to last month
-        </Text>
       </Paper>
     );
   });

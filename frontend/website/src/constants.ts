@@ -9,7 +9,7 @@ export const navLinks = [
     label: "Signup",
   },
   {
-    link: "/startup/dashboard",
+    link: "/dashboard",
     label: "Dashboard",
   },
 ];
