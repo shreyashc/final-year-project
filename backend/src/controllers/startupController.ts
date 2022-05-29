@@ -10,7 +10,6 @@ const dashboad_get = async (
   _nxt: NextFunction
 ) => {
   try {
-    console.log(res.locals.user);
     const id = res.locals.user.id;
     const startupDetails = await User.findOne({
       where: { id },

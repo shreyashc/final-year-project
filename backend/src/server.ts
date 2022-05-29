@@ -72,7 +72,7 @@ const main = async () => {
 
   app.use("/api/auth", AuthRoutes);
   app.use("/api/startup", requireAuthApi, requireStartup, StartupRoutes);
-  app.use("/api/investors", InverstorRoutes);
+  app.use("/api/investor", InverstorRoutes);
 
   //not found route
   app.use((_req: Request, _res: Response, next: NextFunction) => {

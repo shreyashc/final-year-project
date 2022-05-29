@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ExternalLink } from "tabler-icons-react";
+import { Edit, ExternalLink } from "tabler-icons-react";
 import { apiClient } from "../api/client";
 import StatsGrid from "../components/StatsGrid";
 
@@ -65,6 +65,7 @@ const StartupDashboard = () => {
               nav("/startup/edit-details");
             }}
           >
+            <Edit />
             Edit info
           </Button>
         </Group>
