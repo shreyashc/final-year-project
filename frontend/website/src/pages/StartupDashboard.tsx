@@ -1,4 +1,5 @@
 import {
+  Accordion,
   Anchor,
   Avatar,
   Button,
@@ -6,19 +7,37 @@ import {
   Container,
   Group,
   Loader,
+  Paper,
   SimpleGrid,
+  Tabs,
   Text,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
+
 import { useNavigate } from "react-router-dom";
-import { Edit, ExternalLink } from "tabler-icons-react";
+import {
+  Edit,
+  ExternalLink,
+  PresentationAnalytics,
+  Building,
+  InfoCircle,
+} from "tabler-icons-react";
 import { apiClient } from "../api/client";
+import { FaqWithBg } from "../components/FaqWithBg";
 import StatsGrid from "../components/StatsGrid";
 
 const StartupDashboard = () => {
   const [sd, setStartupDetails] = useState<startupDetails>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+  function onDocumentLoadSuccess({ numPages }: any) {
+    setNumPages(numPages);
+  }
   const nav = useNavigate();
 
   const getDetails = () => {
@@ -112,6 +131,84 @@ const StartupDashboard = () => {
         profit={sd?.startup.profit}
         amountRaised={sd?.startup.amountRaised}
       />
+      <Tabs color="cyan" tabPadding="xl">
+        <Tabs.Tab label="Pitch" icon={<PresentationAnalytics size={14} />}>
+          <Document
+            file="https://firebasestorage.googleapis.com/v0/b/gallery-e29e9.appspot.com/o/startezy%2FAICTE%20activity%203.pdf?alt=media&token=aaa15952-d1ab-4fd7-a002-8d9fdf0284f6"
+            onLoadError={console.error}
+            onLoadSuccess={onDocumentLoadSuccess}
+          >
+            <Page pageNumber={pageNumber} />
+          </Document>
+        </Tabs.Tab>
+        <Tabs.Tab label="People" icon={<Building size={14} />}>
+          <SimpleGrid
+            mt={15}
+            breakpoints={[
+              { minWidth: "sm", cols: 1 },
+              { minWidth: "md", cols: 2 },
+            ]}
+          >
+            <Paper shadow="md" m={20} p="md">
+              <Text size="xl" weight={700}>
+                Name
+              </Text>
+              <Text>Role</Text>
+              <Anchor>linkedin url</Anchor>
+              <Text>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+                optio veniam amet vitae dolore sequi eaque a incidunt
+                consequatur repellendus ullam magnam ab aliquam hic, inventore
+                aspernatur. Dolore, magnam animi.
+              </Text>
+            </Paper>
+            <Paper shadow="md" m={20} p="md">
+              <Text size="xl" weight={700}>
+                Name
+              </Text>
+              <Text>Role</Text>
+              <Anchor>linkedin url</Anchor>
+              <Text>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+                optio veniam amet vitae dolore sequi eaque a incidunt
+                consequatur repellendus ullam magnam ab aliquam hic, inventore
+                aspernatur. Dolore, magnam animi.
+              </Text>
+            </Paper>
+            <Paper shadow="md" m={20} p="md">
+              <Text size="xl" weight={700}>
+                Name
+              </Text>
+              <Text>Role</Text>
+              <Anchor>linkedin url</Anchor>
+              <Text>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+                optio veniam amet vitae dolore sequi eaque a incidunt
+                consequatur repellendus ullam magnam ab aliquam hic, inventore
+                aspernatur. Dolore, magnam animi.
+              </Text>
+            </Paper>
+          </SimpleGrid>
+        </Tabs.Tab>
+        <Tabs.Tab label="FAQs" icon={<InfoCircle size={14} />}>
+          <Accordion iconPosition="right">
+            <Accordion.Item label="Customization">
+              Colors, fonts, shadows and many other parts are customizable to
+              fit your design needs
+            </Accordion.Item>
+
+            <Accordion.Item label="Flexibility">
+              Configure components appearance and behavior with vast amount of
+              settings or overwrite any part of component styles
+            </Accordion.Item>
+
+            <Accordion.Item label="No annoying focus ring">
+              With new :focus-visible pseudo-class focus ring appears only when
+              user navigates with keyboard
+            </Accordion.Item>
+          </Accordion>
+        </Tabs.Tab>
+      </Tabs>
     </Container>
   );
 };
