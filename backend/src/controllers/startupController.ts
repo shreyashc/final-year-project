@@ -57,9 +57,66 @@ const details_update = async (
       {
         userId: id,
       },
+      sd
+    );
+    return res.json(updatedData);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+};
+
+const highlights_update = async (
+  req: Request,
+  res: Response,
+  _nxt: NextFunction
+) => {
+  console.log(res.locals.user);
+  const id = res.locals.user.id;
+  try {
+    const startupDetails = await Startup.findOne({
+      where: { userId: id },
+    });
+
+    const sd = _.pick(req.body, ["h1", "d1", "h2", "d2", "h3", "d3"]);
+
+    if (!startupDetails) {
+      throw new httpErrors.BadRequest();
+    }
+    const updatedData = await Startup.update(
       {
-        ...sd,
-      }
+        userId: id,
+      },
+      sd
+    );
+    return res.json(updatedData);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+};
+const people_update = async (
+  req: Request,
+  res: Response,
+  _nxt: NextFunction
+) => {
+  console.log(res.locals.user);
+  const id = res.locals.user.id;
+  try {
+    const startupDetails = await Startup.findOne({
+      where: { userId: id },
+    });
+
+    const sd = _.pick(req.body, ["p1", "b1", "p2", "b2", "p3", "b3"]);
+
+    if (!startupDetails) {
+      throw new httpErrors.BadRequest();
+    }
+    const updatedData = await Startup.update(
+      {
+        userId: id,
+      },
+      sd
     );
     return res.json(updatedData);
   } catch (error) {
@@ -103,4 +160,10 @@ const logo_update = async (
   }
 };
 
-export { dashboad_get, details_update, logo_update };
+export {
+  dashboad_get,
+  details_update,
+  logo_update,
+  highlights_update,
+  people_update,
+};

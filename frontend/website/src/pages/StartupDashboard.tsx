@@ -8,6 +8,7 @@ import {
   Group,
   Loader,
   Paper,
+  ScrollArea,
   SimpleGrid,
   Tabs,
   Text,
@@ -24,7 +25,7 @@ import {
   InfoCircle,
 } from "tabler-icons-react";
 import { apiClient } from "../api/client";
-import { FaqWithBg } from "../components/FaqWithBg";
+
 import StatsGrid from "../components/StatsGrid";
 
 const StartupDashboard = () => {
@@ -32,7 +33,7 @@ const StartupDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
   function onDocumentLoadSuccess({ numPages }: any) {
@@ -132,16 +133,24 @@ const StartupDashboard = () => {
         amountRaised={sd?.startup.amountRaised}
       />
       <Tabs color="cyan" tabPadding="xl">
-        <Tabs.Tab label="Pitch" icon={<PresentationAnalytics size={14} />}>
-          <Document
-            file="https://firebasestorage.googleapis.com/v0/b/gallery-e29e9.appspot.com/o/startezy%2FAICTE%20activity%203.pdf?alt=media&token=aaa15952-d1ab-4fd7-a002-8d9fdf0284f6"
-            onLoadError={console.error}
-            onLoadSuccess={onDocumentLoadSuccess}
-          >
-            <Page pageNumber={pageNumber} />
-          </Document>
+        <Tabs.Tab
+          label="Pitch"
+          mr={15}
+          icon={<PresentationAnalytics size={35} />}
+        >
+          <ScrollArea style={{ height: 700 }}>
+            <Document
+              file="https://firebasestorage.googleapis.com/v0/b/gallery-e29e9.appspot.com/o/startezy%2FALPINO_HEALTH_FOODS_PRIVATE_LIMITED-pitch_compressed.pdf?alt=media&token=f976d774-7e87-45d2-a298-440428a02e01"
+              onLoadError={console.error}
+              onLoadSuccess={onDocumentLoadSuccess}
+            >
+              {[...Array(numPages)].map((e, i) => {
+                return <Page object-fit="fill" pageNumber={i + 1} key={i} />;
+              })}
+            </Document>
+          </ScrollArea>
         </Tabs.Tab>
-        <Tabs.Tab label="People" icon={<Building size={14} />}>
+        <Tabs.Tab label="People" mr={15} icon={<Building size={35} />}>
           <SimpleGrid
             mt={15}
             breakpoints={[
@@ -149,62 +158,41 @@ const StartupDashboard = () => {
               { minWidth: "md", cols: 2 },
             ]}
           >
-            <Paper shadow="md" m={20} p="md">
+            <Paper style={{ cursor: "pointer" }} shadow="lg" m={20} p="lg">
               <Text size="xl" weight={700}>
-                Name
+                {sd?.startup.p1}
               </Text>
-              <Text>Role</Text>
-              <Anchor>linkedin url</Anchor>
-              <Text>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
-                optio veniam amet vitae dolore sequi eaque a incidunt
-                consequatur repellendus ullam magnam ab aliquam hic, inventore
-                aspernatur. Dolore, magnam animi.
-              </Text>
+              <Text my={10}>Role</Text>
+              <Text>{sd?.startup.b1}</Text>
             </Paper>
-            <Paper shadow="md" m={20} p="md">
+            <Paper style={{ cursor: "pointer" }} shadow="lg" m={20} p="lg">
               <Text size="xl" weight={700}>
-                Name
+                {sd?.startup.p2}
               </Text>
-              <Text>Role</Text>
-              <Anchor>linkedin url</Anchor>
-              <Text>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
-                optio veniam amet vitae dolore sequi eaque a incidunt
-                consequatur repellendus ullam magnam ab aliquam hic, inventore
-                aspernatur. Dolore, magnam animi.
-              </Text>
+              <Text my={10}>Role</Text>
+              <Text>{sd?.startup.b2}</Text>
             </Paper>
-            <Paper shadow="md" m={20} p="md">
+            <Paper style={{ cursor: "pointer" }} shadow="lg" m={20} p="lg">
               <Text size="xl" weight={700}>
-                Name
+                {sd?.startup.p3}
               </Text>
-              <Text>Role</Text>
-              <Anchor>linkedin url</Anchor>
-              <Text>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
-                optio veniam amet vitae dolore sequi eaque a incidunt
-                consequatur repellendus ullam magnam ab aliquam hic, inventore
-                aspernatur. Dolore, magnam animi.
-              </Text>
+              <Text my={10}>Role</Text>
+              <Text>{sd?.startup.b3}</Text>
             </Paper>
           </SimpleGrid>
         </Tabs.Tab>
-        <Tabs.Tab label="FAQs" icon={<InfoCircle size={14} />}>
+        <Tabs.Tab label="Highlights" mr={15} icon={<InfoCircle size={35} />}>
           <Accordion iconPosition="right">
-            <Accordion.Item label="Customization">
-              Colors, fonts, shadows and many other parts are customizable to
-              fit your design needs
+            <Accordion.Item label={sd?.startup.h1}>
+              {sd?.startup.d1}
             </Accordion.Item>
 
-            <Accordion.Item label="Flexibility">
-              Configure components appearance and behavior with vast amount of
-              settings or overwrite any part of component styles
+            <Accordion.Item label={sd?.startup.h2}>
+              {sd?.startup.d2}
             </Accordion.Item>
 
-            <Accordion.Item label="No annoying focus ring">
-              With new :focus-visible pseudo-class focus ring appears only when
-              user navigates with keyboard
+            <Accordion.Item label={sd?.startup.h3}>
+              {sd?.startup.d3}
             </Accordion.Item>
           </Accordion>
         </Tabs.Tab>
@@ -236,6 +224,18 @@ export interface Startup {
   logoURL: string;
   revenue: number;
   profit: number;
+  p1: string;
+  b1: string;
+  p2: string;
+  b2: string;
+  p3: string;
+  b3: string;
+  h1: string;
+  d1: string;
+  h2: string;
+  d2: string;
+  h3: string;
+  d3: string;
 }
 
 const stats = [

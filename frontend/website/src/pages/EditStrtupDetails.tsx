@@ -4,6 +4,7 @@ import {
   Button,
   Center,
   Container,
+  Divider,
   Group,
   Loader,
   Paper,
@@ -14,6 +15,7 @@ import {
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { apiClient } from "../api/client";
 import { startupDetails } from "./StartupDashboard";
 
@@ -24,6 +26,8 @@ const EditStrtupDetails = () => {
   const [updatingLogo, setUpdatingLogo] = useState(false);
   const [error, setError] = useState(false);
   const fileInputRef = useRef<any>(null);
+
+  const nav = useNavigate();
 
   const getDetails = () => {
     setLoading(true);
@@ -178,6 +182,30 @@ const EditStrtupDetails = () => {
             }}
           >
             Change logo
+          </Button>
+          <Divider my="xs" label="Other updates" labelPosition="center" />
+          <Button
+            variant="subtle"
+            size="md"
+            color="blue"
+            onClick={() => {
+              nav("/startup/edit-people");
+            }}
+          >
+            Edit People
+          </Button>
+          <Button
+            variant="subtle"
+            size="md"
+            color="blue"
+            onClick={() => {
+              nav("/startup/edit-highlights");
+            }}
+          >
+            Edit Highlights
+          </Button>
+          <Button variant="subtle" size="md" color="blue">
+            Upload Pitch
           </Button>
         </Group>
         <Box style={{ flexGrow: 1 }}>

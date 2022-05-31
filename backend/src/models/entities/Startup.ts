@@ -48,4 +48,34 @@ export class Startup extends BaseEntity {
   revenue!: string;
   @Column({ default: 0 })
   profit!: string;
+
+  @Column({ default: "Highlight 1" })
+  h1!: string;
+  @Column({ default: "Desc 1" })
+  d1!: string;
+
+  @Column({ default: "Highlight 2" })
+  h2!: string;
+  @Column({ default: "Desc 2" })
+  d2!: string;
+
+  @Column({ default: "Highlight 3" })
+  h3!: string;
+  @Column({ default: "Desc 3" })
+  d3!: string;
+
+  @Column({ default: "Person 1" })
+  p1!: string;
+  @Column({ default: "Bio 1" })
+  b1!: string;
+
+  @Column({ default: "Person 2" })
+  p2!: string;
+  @Column({ default: "Bio 2" })
+  b2!: string;
+
+  @Column({ default: "Person 3" })
+  p3!: string;
+  @Column({ default: "Bio 3" })
+  b3!: string;
 }
