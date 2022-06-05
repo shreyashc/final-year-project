@@ -24,8 +24,10 @@ const EditStrtupDetails = () => {
   const [loading, setLoading] = useState(false);
   const [updating, setUpdating] = useState(false);
   const [updatingLogo, setUpdatingLogo] = useState(false);
+  const [updatingPitch, setUpdatingPitch] = useState(false);
   const [error, setError] = useState(false);
   const fileInputRef = useRef<any>(null);
+  const fileInputRef2 = useRef<any>(null);
 
   const nav = useNavigate();
 
@@ -102,13 +104,48 @@ const EditStrtupDetails = () => {
         setUpdatingLogo(false);
       });
   };
+  const uploadPitch = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e?.target?.files?.length) return;
+    setUpdatingPitch(true);
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("pitch-pdf", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    apiClient
+      .post("/startup/update-pitch/", formData, config)
+      .then((response) => {
+        console.log(response);
+        showNotification({
+          title: "Notification",
+          message: "Successfully updated Pitch.",
+          autoClose: 1000,
+          color: "green",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        showNotification({
+          title: "Notification",
+          message: "Failed updated Pitch.",
+          autoClose: 1000,
+          color: "red",
+        });
+      })
+      .finally(() => {
+        setUpdatingPitch(false);
+      });
+  };
   useEffect(() => {
     getDetails();
   }, []);
 
   useEffect(() => {
     if (sd) {
-      const { logoURL, id, userId, ...formValues } = sd.startup;
+      const { logoURL, id, userId, pithPdfURL, ...formValues } = sd.startup;
       form.setValues(formValues);
     }
   }, [sd]);
@@ -204,8 +241,27 @@ const EditStrtupDetails = () => {
           >
             Edit Highlights
           </Button>
-          <Button variant="subtle" size="md" color="blue">
-            Upload Pitch
+          <input
+            className="input-file"
+            type="file"
+            max={1}
+            accept="application/pdf"
+            onChange={(e) => uploadPitch(e)}
+            ref={fileInputRef2}
+          />
+          <Button
+            variant={updatingPitch ? "filled" : "subtle"}
+            size="md"
+            color="blue"
+            onClick={() => {
+              fileInputRef2.current.click();
+            }}
+          >
+            {updatingPitch ? (
+              <Loader color="white" variant="dots" />
+            ) : (
+              "Upload Pitch"
+            )}
           </Button>
         </Group>
         <Box style={{ flexGrow: 1 }}>

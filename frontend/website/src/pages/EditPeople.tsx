@@ -1,21 +1,15 @@
 import {
-  Avatar,
-  Box,
   Button,
   Center,
   Container,
-  Divider,
-  Group,
   Loader,
-  Paper,
   Text,
   Textarea,
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { apiClient } from "../api/client";
 import { startupDetails } from "./StartupDashboard";
 

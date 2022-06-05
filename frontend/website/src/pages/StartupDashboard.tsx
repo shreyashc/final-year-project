@@ -138,17 +138,19 @@ const StartupDashboard = () => {
           mr={15}
           icon={<PresentationAnalytics size={35} />}
         >
-          <ScrollArea style={{ height: 700 }}>
-            <Document
-              file="https://firebasestorage.googleapis.com/v0/b/gallery-e29e9.appspot.com/o/startezy%2FALPINO_HEALTH_FOODS_PRIVATE_LIMITED-pitch_compressed.pdf?alt=media&token=f976d774-7e87-45d2-a298-440428a02e01"
-              onLoadError={console.error}
-              onLoadSuccess={onDocumentLoadSuccess}
-            >
-              {[...Array(numPages)].map((e, i) => {
-                return <Page object-fit="fill" pageNumber={i + 1} key={i} />;
-              })}
-            </Document>
-          </ScrollArea>
+          <div className="pdf-wrap">
+            <ScrollArea style={{ height: "80vh" }}>
+              <Document
+                file={sd?.startup.pithPdfURL}
+                onLoadError={console.error}
+                onLoadSuccess={onDocumentLoadSuccess}
+              >
+                {[...Array(numPages)].map((e, i) => {
+                  return <Page pageNumber={i + 1} key={i} />;
+                })}
+              </Document>
+            </ScrollArea>
+          </div>
         </Tabs.Tab>
         <Tabs.Tab label="People" mr={15} icon={<Building size={35} />}>
           <SimpleGrid
@@ -222,6 +224,7 @@ export interface Startup {
   amountRaised: string;
   ytURL: string;
   logoURL: string;
+  pithPdfURL: string;
   revenue: number;
   profit: number;
   p1: string;

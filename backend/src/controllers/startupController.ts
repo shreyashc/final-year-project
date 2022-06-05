@@ -159,6 +159,40 @@ const logo_update = async (
     return res.send(error);
   }
 };
+const pitch_update = async (
+  req: Request,
+  res: Response,
+  _next: NextFunction
+) => {
+  try {
+    const id = res.locals.user.id;
+
+    const startupDetails = await Startup.findOne({
+      where: { userId: id },
+    });
+
+    if (!startupDetails) {
+      throw new httpErrors.BadRequest();
+    }
+
+    if (!req.file) throw new httpErrors.BadRequest();
+
+    const fileUrl = await getImageURL(req.file);
+
+    await Startup.update(
+      {
+        userId: id,
+      },
+      {
+        pithPdfURL: fileUrl,
+      }
+    );
+
+    return res.json({ newPdfUrl: fileUrl });
+  } catch (error) {
+    return _next(error);
+  }
+};
 
 export {
   dashboad_get,
@@ -166,4 +200,5 @@ export {
   logo_update,
   highlights_update,
   people_update,
+  pitch_update,
 };

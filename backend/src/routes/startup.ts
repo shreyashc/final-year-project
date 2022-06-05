@@ -13,5 +13,10 @@ router.post(
   multer.single("image"),
   StartupController.logo_update
 );
+router.post(
+  "/update-pitch",
+  multer.single("pitch-pdf"),
+  StartupController.pitch_update
+);
 
 export default router;

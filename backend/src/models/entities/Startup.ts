@@ -44,6 +44,11 @@ export class Startup extends BaseEntity {
   })
   logoURL!: string;
 
+  @Column({
+    default: "",
+  })
+  pithPdfURL!: string;
+
   @Column({ default: 0 })
   revenue!: string;
   @Column({ default: 0 })
