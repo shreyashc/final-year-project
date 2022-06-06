@@ -3,10 +3,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from ".";
+import { Upvote } from "./Upvote";
 
 @Entity()
 export class Startup extends BaseEntity {
@@ -37,6 +39,12 @@ export class Startup extends BaseEntity {
 
   @Column({ nullable: true })
   ytURL!: string;
+
+  @Column({ default: 0 })
+  upvalue!: number;
+
+  @OneToMany(() => Upvote, (updoot) => updoot.startup)
+  upvotes: Upvote[];
 
   @Column({
     default:

@@ -1,4 +1,5 @@
 import { Avatar, Button, createStyles, Group, Text } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 import { At, Location, MessageDots, UserPlus } from "tabler-icons-react";
 
 const useStyles = createStyles((theme) => ({
@@ -15,25 +16,31 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface UserInfoIconsProps {
-  avatar: string;
-  name: string;
-  title: string;
-  location: string;
-  email: string;
+  displayName: string;
+  contactEmail: string;
+  shortDesc: string;
+  iType: string;
+  investedIn: string;
+  pfpURL: string;
+  userId: number;
+  startupUserId: string;
 }
 
 export default function InvestorItem({
-  avatar,
-  name,
-  title,
-  location,
-  email,
+  displayName,
+  contactEmail,
+  startupUserId,
+  iType,
+  investedIn,
+  pfpURL,
+  userId,
 }: UserInfoIconsProps) {
   const { classes } = useStyles();
+  const nav = useNavigate();
   return (
     <div>
       <Group noWrap my={40} align="stretch">
-        <Avatar src={avatar} size={175} radius="md" />
+        <Avatar src={pfpURL} size={175} radius="md" />
         <Group direction="column" style={{ gap: "5px" }}>
           <Text
             size="md"
@@ -41,28 +48,36 @@ export default function InvestorItem({
             weight={700}
             color="dimmed"
           >
-            {title}
+            {iType}
           </Text>
 
           <Text size="xl" weight={500} className={classes.name}>
-            {name}
+            {displayName}
           </Text>
 
           <Group noWrap spacing={10} mt={3}>
             <At size={16} className={classes.icon} />
             <Text size="xs" color="dimmed">
-              {email}
+              {contactEmail}
             </Text>
           </Group>
 
           <Group noWrap spacing={10} mt={5}>
             <Location size={16} className={classes.icon} />
             <Text size="xs" color="dimmed">
-              {location}
+              {investedIn}
             </Text>
           </Group>
           <Group noWrap spacing={10} mt="auto">
-            <Button color="green" size="md" variant="light" uppercase>
+            <Button
+              color="green"
+              size="md"
+              variant="light"
+              uppercase
+              onClick={() => {
+                nav(`/private-chat/${userId}i-${startupUserId}s`);
+              }}
+            >
               <MessageDots style={{ marginRight: 5 }} />
               chat
             </Button>

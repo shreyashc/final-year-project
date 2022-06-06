@@ -26,6 +26,20 @@ const dashboad_get = async (
     return res.status(400).json(error);
   }
 };
+const startups_get = async (
+  _req: Request,
+  res: Response,
+  _nxt: NextFunction
+) => {
+  try {
+    const startups = await Startup.find();
+
+    return res.json(startups);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+};
 
 const details_update = async (
   req: Request,
@@ -95,6 +109,7 @@ const highlights_update = async (
     return res.status(400).json(error);
   }
 };
+
 const people_update = async (
   req: Request,
   res: Response,
@@ -201,4 +216,5 @@ export {
   highlights_update,
   people_update,
   pitch_update,
+  startups_get,
 };

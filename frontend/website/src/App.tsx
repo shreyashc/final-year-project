@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import InvestorDashboard from "./pages/InvestorDashboard";
 import Investors from "./pages/Investors";
 import Login from "./pages/Login";
+import PrivateChat from "./pages/PrivateChat";
 import Signup from "./pages/Signup";
 import StartupDashboard from "./pages/StartupDashboard";
 import Startups from "./pages/Startups";
@@ -52,6 +53,7 @@ function App() {
             />
             <Route path="/investors" element={<Investors />} />
             <Route path="/startups" element={<Startups />} />
+            <Route path="/private-chat/:chatid" element={<PrivateChat />} />
           </Routes>
           <Footer data={footerLinks} />
         </div>

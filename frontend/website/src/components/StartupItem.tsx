@@ -1,15 +1,15 @@
-import React from "react";
 import {
-  createStyles,
-  Card,
-  Image,
   ActionIcon,
-  Group,
-  Text,
-  Avatar,
   Badge,
+  Card,
+  createStyles,
+  Group,
+  Image,
+  Text,
 } from "@mantine/core";
-import { Heart, Bookmark, Share } from "tabler-icons-react";
+
+import { CaretUp, Heart, ThumbDown, ThumbUp } from "tabler-icons-react";
+import { apiClient } from "../api/client";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -32,45 +32,83 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface StartupItemProps {
-  image: string;
-  category: string;
-  title: string;
-  footer: string;
-  location: string;
+  id: number;
+  displayName: string;
+  website: string;
+  userId: number;
+  contactEmail: string;
+  shortDesc: string;
+  amountRaised: string;
+  ytURL: string;
+  logoURL: string;
+  pithPdfURL: string;
+  revenue: string;
+  profit: string;
+  upvalue: number;
+  upvoted: boolean;
+  up: (sid: number) => void;
+  upRemove: (sid: number) => void;
 }
 
 export default function StartupItem({
-  image,
-  category,
-  title,
-  footer,
-  location,
+  displayName,
+  website,
+  id,
+  amountRaised,
+  upvoted,
+  logoURL,
+  upvalue,
+  up,
+  upRemove,
 }: StartupItemProps) {
   const { classes, theme } = useStyles();
-
+  const upvote = (startupid: any) => {
+    apiClient
+      .post("upvote/" + startupid)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
   return (
-    <Card withBorder p="lg" radius="md" className={classes.card}>
+    <Card
+      withBorder
+      p="lg"
+      radius="md"
+      className={classes.card}
+      style={{ cursor: "pointer" }}
+    >
       <Card.Section mb="sm">
-        <Image src={image} alt={title} height={180} />
+        <Image src={logoURL} alt={displayName} height={180} />
       </Card.Section>
 
       <Text size="xl" weight={700} className={classes.title} mt="xs">
-        {title}
+        {displayName}
       </Text>
       <Text size="xs" color="dimmed">
-        {location}
+        {website}
       </Text>
       <Badge color="dark" radius="lg" variant="outline" mt="xs">
-        {category}
+        {amountRaised}
       </Badge>
       <Card.Section className={classes.footer}>
         <Group position="apart">
           <Text size="xs" color="dimmed">
-            {footer}
+            {upvalue} {" Upvotes"}
           </Text>
           <Group spacing={0}>
             <ActionIcon>
-              <Heart size={18} color={theme.colors.red[7]} />
+              <ThumbUp
+                size={28}
+                color={theme.colors.orange[7]}
+                fill={upvoted ? "rgb(255 186 140)" : "none"}
+                onClick={() => {
+                  if (upvoted) {
+                    upRemove(id);
+                  } else {
+                    up(id);
+                  }
+                  upvote(id);
+                }}
+              />
             </ActionIcon>
           </Group>
         </Group>
