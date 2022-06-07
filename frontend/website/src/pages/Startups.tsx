@@ -2,19 +2,20 @@ import StartupItem from "../components/StartupItem";
 import { Center, Container, Loader, Text, SimpleGrid } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { apiClient } from "../api/client";
+import { useNavigate } from "react-router-dom";
 
 const Startups = () => {
   const [startups, setStartups] = useState<StartupT[]>([]);
   const [myUpvotes, setMyUpvotes] = useState<number[]>([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const nav = useNavigate();
 
   useEffect(() => {
     setLoading(true);
     apiClient
       .get<StartupT[]>("startups")
       .then((res) => {
-        console.log(res);
         setStartups(res.data);
       })
       .catch((err) => {
@@ -28,35 +29,31 @@ const Startups = () => {
     apiClient
       .get<number[]>("upvote/my-upvotes")
       .then((res) => {
-        console.log(res);
         setMyUpvotes(res.data);
       })
       .catch((err) => {
         console.log(err);
-        setError(true);
       })
       .finally(() => setLoading(false));
   }, []);
 
   const up = (sid: number) => {
-    setStartups((prev) => {
-      return prev.map((itm) => {
+    setStartups((prev) =>
+      prev.map((itm) => {
         if (itm.id === sid)
           return {
             ...itm,
             upvalue: itm.upvalue + 1,
           };
         return itm;
-      });
-    });
+      })
+    );
     setMyUpvotes((prev) => [...prev, sid]);
   };
   const upRemove = (sid: number) => {
-    setMyUpvotes((prev) => {
-      return prev.filter((id) => id !== sid);
-    });
-    setStartups((prev) => {
-      return prev.map((itm) => {
+    setMyUpvotes((prev) => prev.filter((id) => id !== sid));
+    setStartups((prev) =>
+      prev.map((itm) => {
         if (itm.id === sid) {
           return {
             ...itm,
@@ -64,8 +61,8 @@ const Startups = () => {
           };
         }
         return itm;
-      });
-    });
+      })
+    );
   };
 
   if (loading)
@@ -94,6 +91,7 @@ const Startups = () => {
       >
         {startups.map((itm) => (
           <StartupItem
+            onClick={() => nav("/startups/" + itm.id)}
             up={up}
             upRemove={upRemove}
             {...itm}

@@ -7,8 +7,9 @@ import {
   Image,
   Text,
 } from "@mantine/core";
-
-import { CaretUp, Heart, ThumbDown, ThumbUp } from "tabler-icons-react";
+import { showNotification } from "@mantine/notifications";
+import { FC, useState } from "react";
+import { ThumbUp } from "tabler-icons-react";
 import { apiClient } from "../api/client";
 
 const useStyles = createStyles((theme) => ({
@@ -48,9 +49,10 @@ interface StartupItemProps {
   upvoted: boolean;
   up: (sid: number) => void;
   upRemove: (sid: number) => void;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
-export default function StartupItem({
+const StartupItem: FC<StartupItemProps> = ({
   displayName,
   website,
   id,
@@ -60,16 +62,37 @@ export default function StartupItem({
   upvalue,
   up,
   upRemove,
-}: StartupItemProps) {
+  onClick,
+}: StartupItemProps) => {
   const { classes, theme } = useStyles();
-  const upvote = (startupid: any) => {
+  const [upvoting, setUpvoting] = useState(false);
+  const upvote = (startupid: any, upvoted: boolean) => {
+    setUpvoting(true);
     apiClient
       .post("upvote/" + startupid)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then(() => {
+        if (upvoted) {
+          showNotification({
+            title: "Notification",
+            message: "Upvote Removed",
+            autoClose: 1000,
+            color: "red",
+          });
+          return;
+        }
+        showNotification({
+          title: "Notification",
+          message: "Upvoted",
+          autoClose: 1000,
+          color: "green",
+        });
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setUpvoting(false));
   };
   return (
     <Card
+      onClick={onClick}
       withBorder
       p="lg"
       radius="md"
@@ -87,7 +110,7 @@ export default function StartupItem({
         {website}
       </Text>
       <Badge color="dark" radius="lg" variant="outline" mt="xs">
-        {amountRaised}
+        {amountRaised ? amountRaised : "NA"}
       </Badge>
       <Card.Section className={classes.footer}>
         <Group position="apart">
@@ -95,7 +118,7 @@ export default function StartupItem({
             {upvalue} {" Upvotes"}
           </Text>
           <Group spacing={0}>
-            <ActionIcon>
+            <ActionIcon disabled={upvoting}>
               <ThumbUp
                 size={28}
                 color={theme.colors.orange[7]}
@@ -106,7 +129,7 @@ export default function StartupItem({
                   } else {
                     up(id);
                   }
-                  upvote(id);
+                  upvote(id, upvoted);
                 }}
               />
             </ActionIcon>
@@ -115,4 +138,5 @@ export default function StartupItem({
       </Card.Section>
     </Card>
   );
-}
+};
+export default StartupItem;

@@ -7,7 +7,7 @@ import { getImageURL } from "./utils";
 const dashboad_get = async (
   _req: Request,
   res: Response,
-  _nxt: NextFunction
+  nxt: NextFunction
 ) => {
   try {
     const id = res.locals.user.id;
@@ -23,13 +23,14 @@ const dashboad_get = async (
     return res.json(startupDetailsDto);
   } catch (error) {
     console.log(error);
-    return res.status(400).json(error);
+    return nxt(error);
   }
 };
+
 const startups_get = async (
   _req: Request,
   res: Response,
-  _nxt: NextFunction
+  nxt: NextFunction
 ) => {
   try {
     const startups = await Startup.find();
@@ -37,14 +38,34 @@ const startups_get = async (
     return res.json(startups);
   } catch (error) {
     console.log(error);
-    return res.status(400).json(error);
+    return nxt(error);
+  }
+};
+
+const startup_details_get = async (
+  req: Request,
+  res: Response,
+  nxt: NextFunction
+) => {
+  try {
+    const id = +req.params.startupid;
+    const startupDetails = await Startup.findOne({
+      where: { id },
+    });
+
+    if (!startupDetails) throw new httpErrors.NotFound();
+
+    return res.json(startupDetails);
+  } catch (error) {
+    console.log(error);
+    return nxt(error);
   }
 };
 
 const details_update = async (
   req: Request,
   res: Response,
-  _nxt: NextFunction
+  nxt: NextFunction
 ) => {
   console.log(res.locals.user);
   const id = res.locals.user.id;
@@ -76,14 +97,14 @@ const details_update = async (
     return res.json(updatedData);
   } catch (error) {
     console.log(error);
-    return res.status(400).json(error);
+    return nxt(error);
   }
 };
 
 const highlights_update = async (
   req: Request,
   res: Response,
-  _nxt: NextFunction
+  nxt: NextFunction
 ) => {
   console.log(res.locals.user);
   const id = res.locals.user.id;
@@ -106,14 +127,14 @@ const highlights_update = async (
     return res.json(updatedData);
   } catch (error) {
     console.log(error);
-    return res.status(400).json(error);
+    return nxt(error);
   }
 };
 
 const people_update = async (
   req: Request,
   res: Response,
-  _nxt: NextFunction
+  nxt: NextFunction
 ) => {
   console.log(res.locals.user);
   const id = res.locals.user.id;
@@ -136,7 +157,7 @@ const people_update = async (
     return res.json(updatedData);
   } catch (error) {
     console.log(error);
-    return res.status(400).json(error);
+    return nxt(error);
   }
 };
 
@@ -177,7 +198,7 @@ const logo_update = async (
 const pitch_update = async (
   req: Request,
   res: Response,
-  _next: NextFunction
+  next: NextFunction
 ) => {
   try {
     const id = res.locals.user.id;
@@ -205,7 +226,7 @@ const pitch_update = async (
 
     return res.json({ newPdfUrl: fileUrl });
   } catch (error) {
-    return _next(error);
+    return next(error);
   }
 };
 
@@ -217,4 +238,5 @@ export {
   people_update,
   pitch_update,
   startups_get,
+  startup_details_get,
 };

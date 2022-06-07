@@ -53,6 +53,7 @@ function App() {
             />
             <Route path="/investors" element={<Investors />} />
             <Route path="/startups" element={<Startups />} />
+            <Route path="/startups/:id" element={<StartupDashboard />} />
             <Route path="/private-chat/:chatid" element={<PrivateChat />} />
           </Routes>
           <Footer data={footerLinks} />

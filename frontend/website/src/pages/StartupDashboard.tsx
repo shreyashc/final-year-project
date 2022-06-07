@@ -13,10 +13,10 @@ import {
   Tabs,
   Text,
 } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Edit,
   ExternalLink,
@@ -27,8 +27,13 @@ import {
 import { apiClient } from "../api/client";
 
 import StatsGrid from "../components/StatsGrid";
+import { AuthContext } from "../context/authContext";
 
 const StartupDashboard = () => {
+  const { id } = useParams();
+  const { state: authState } = useContext(AuthContext);
+  const isVisitor = id;
+  const path = id ? `startups/${id}` : "startup/dashboard/";
   const [sd, setStartupDetails] = useState<startupDetails>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -43,19 +48,45 @@ const StartupDashboard = () => {
 
   const getDetails = () => {
     setLoading(true);
-    apiClient
-      .get<startupDetails>("/startup/dashboard/")
-      .then((res) => {
-        setStartupDetails(res.data);
-        setError(false);
-      })
-      .catch((err) => {
-        setError(true);
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (isVisitor) {
+      apiClient
+        .get<Startup>(path)
+        .then((res) => {
+          setStartupDetails({
+            email: "",
+            role: "",
+            createdAt: "",
+            id: 0,
+            updatedAt: "",
+            startup: { ...res.data },
+          });
+
+          setError(false);
+        })
+        .catch((err) => {
+          setError(true);
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+      console.log(sd);
+    } else {
+      apiClient
+        .get<startupDetails>(path)
+        .then((res) => {
+          setStartupDetails(res.data);
+
+          setError(false);
+        })
+        .catch((err) => {
+          setError(true);
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
   useEffect(() => {
     getDetails();
@@ -78,16 +109,18 @@ const StartupDashboard = () => {
               {sd?.startup.displayName}
             </Text>
           </Group>
-          <Button
-            variant="subtle"
-            size="xl"
-            onClick={() => {
-              nav("/startup/edit-details");
-            }}
-          >
-            <Edit />
-            Edit info
-          </Button>
+          {authState.role === "startup" && +authState.userId == sd?.id && (
+            <Button
+              variant="subtle"
+              size="xl"
+              onClick={() => {
+                nav("/startup/edit-details");
+              }}
+            >
+              <Edit />
+              Edit info
+            </Button>
+          )}
         </Group>
         <Text size="md">
           <Anchor href={sd?.startup.website} target="_blank">
