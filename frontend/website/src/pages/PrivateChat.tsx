@@ -1,4 +1,13 @@
 import {
+  Text,
+  Container,
+  Paper,
+  ScrollArea,
+  Box,
+  Avatar,
+  Button,
+} from "@mantine/core";
+import {
   addDoc,
   collection,
   DocumentData,
@@ -11,14 +20,17 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import { db } from "../firebase";
+import "../chat.css";
+import moment from "moment";
+import { Send } from "tabler-icons-react";
 const PrivateChat = () => {
   const { chatid } = useParams();
+  const { state }: any = useLocation();
   const chatPath = `privatechat/messages/${chatid}`;
-  const messagesRef = collection(db, chatPath);
-  const [docs, setDocs] = useState<QuerySnapshot<DocumentData>>();
+
   const [messages, setMessages] =
     useState<QueryDocumentSnapshot<DocumentData>[]>();
 
@@ -37,48 +49,100 @@ const PrivateChat = () => {
       role: authState.role,
     };
     await addDoc(collection(db, chatPath), docData);
+    setFormValue("");
   };
 
   useEffect(() => {
-    async function x() {
-      const docSnap = await getDocs(messagesRef);
-      console.log(docSnap.empty);
-      setDocs(docSnap);
-    }
-    x();
+    dummy?.current.scrollIntoViewIfNeeded({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
     const unsub = onSnapshot(q, (querySnapshot) => {
-      console.log(querySnapshot.docs);
       setMessages(querySnapshot.docs);
     });
+
     return () => unsub();
   }, []);
 
-  // console.log(messagesRef.orderBy);
-
   return (
     <>
-      <main>
-        {messages &&
-          messages.map((msg) => (
-            <div key={msg.id}>
-              <p>{msg.data().text}</p>
-            </div>
-          ))}
-        <span ref={dummy}></span>
-      </main>
-      <form onSubmit={sendMessage}>
-        <input
-          value={formValue}
-          onChange={(e) => setFormValue(e.target.value)}
-          placeholder="say something nice..."
-        />
-        <button type="submit" disabled={!formValue}>
-          send
-        </button>
-      </form>
+      <Container size="md" px={20}>
+        <Paper shadow="sm">
+          <Text
+            style={{ fontSize: "2.1rem", padding: "10px 5px" }}
+            weight={700}
+          >
+            {state?.otherPerson}
+          </Text>
+        </Paper>
+        <Paper shadow="lg" mt={5}>
+          <ScrollArea style={{ height: "70vh" }} p={20}>
+            {messages &&
+              messages.map((msg) => {
+                const data = msg.data();
+                return (
+                  <TextMessage
+                    text={data.text}
+                    time={data.createdAt}
+                    fromMe={data.userId == authState.userId}
+                    avatarText={
+                      data.userId == authState.userId
+                        ? "Me"
+                        : state?.otherPerson.charAt(0)
+                    }
+                    key={msg.id}
+                  />
+                );
+              })}
+
+            <span ref={dummy}></span>
+          </ScrollArea>
+          <form onSubmit={sendMessage} className="chat-form">
+            <input
+              className="msg-input"
+              value={formValue}
+              onChange={(e) => setFormValue(e.target.value)}
+              placeholder="Enter Your message here"
+            />
+            <Button
+              type="submit"
+              disabled={!formValue}
+              variant="light"
+              size="lg"
+            >
+              Send
+            </Button>
+          </form>
+        </Paper>
+      </Container>
     </>
   );
 };
+
+interface tmPops {
+  text: string;
+  time: any;
+  avatarText: string;
+  fromMe: boolean;
+}
+
+function TextMessage({ text, time, fromMe, avatarText }: tmPops) {
+  const messageClass = fromMe ? "sent" : "received";
+  const date = time ? new Date(time.seconds * 1000) : new Date();
+  return (
+    <>
+      <div className={`message ${messageClass}`}>
+        <Avatar color="cyan" radius="xl">
+          {avatarText}
+        </Avatar>
+        <div className={`${messageClass}-txt-dt`}>
+          <p style={{ marginBottom: "0px" }}>{text}</p>
+          <div className="time">{moment(date).fromNow()}</div>
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default PrivateChat;
 

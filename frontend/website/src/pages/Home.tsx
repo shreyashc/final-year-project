@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { apiClient } from "../api/client";
 import { logoutAction } from "../context/actionCreators";
 const Home = () => {
+  const nav = useNavigate();
   const { state: authState, dispatch: authDispatch } = useContext(AuthContext);
   function makeRequest() {
     apiClient.get("/");
@@ -27,9 +28,19 @@ const Home = () => {
         <Link to={"/startups"}>
           <h2>See all startups</h2>
         </Link>
+        <button
+          onClick={() =>
+            nav(`/private-chat/38i26s`, {
+              state: { otherPerson: "Lythouse" },
+            })
+          }
+        >
+          mark chat
+        </button>
       </div>
     </div>
   );
 };
 
 export default Home;
+
