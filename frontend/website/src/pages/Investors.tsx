@@ -15,7 +15,6 @@ const Investors = () => {
     apiClient
       .get<InvestorsT[]>("investor")
       .then((res) => {
-        console.log(res);
         setInvestors(res.data);
       })
       .catch((err) => {
@@ -69,3 +68,4 @@ export interface InvestorsT {
   pfpURL: string;
   userId: number;
 }
+

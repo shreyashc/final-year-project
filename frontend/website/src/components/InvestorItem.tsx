@@ -75,7 +75,7 @@ export default function InvestorItem({
               variant="light"
               uppercase
               onClick={() => {
-                nav(`/private-chat/${userId}i-${startupUserId}s`);
+                nav(`/private-chat/${userId}i${startupUserId}s`);
               }}
             >
               <MessageDots style={{ marginRight: 5 }} />
@@ -91,3 +91,4 @@ export default function InvestorItem({
     </div>
   );
 }
+

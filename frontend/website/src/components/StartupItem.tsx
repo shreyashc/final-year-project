@@ -123,7 +123,8 @@ const StartupItem: FC<StartupItemProps> = ({
                 size={28}
                 color={theme.colors.orange[7]}
                 fill={upvoted ? "rgb(255 186 140)" : "none"}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   if (upvoted) {
                     upRemove(id);
                   } else {
@@ -140,3 +141,4 @@ const StartupItem: FC<StartupItemProps> = ({
   );
 };
 export default StartupItem;
+
