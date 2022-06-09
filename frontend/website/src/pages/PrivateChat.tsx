@@ -64,6 +64,7 @@ const PrivateChat = () => {
     setFormValue("");
     if (isFirstTime) {
       await addToDB();
+      setIsFirstTime(false);
     }
   };
 

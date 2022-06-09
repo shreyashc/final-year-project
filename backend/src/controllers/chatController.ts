@@ -8,14 +8,32 @@ const addNewPchat = async (req: Request, res: Response, nxt: NextFunction) => {
     const { chatId, investorUnread, startupUnread, sUserId, iUserId } =
       req.body;
 
-    const m = await Messages.create({
+    await Messages.insert({
       chatId,
       investorUnread,
       startupUnread,
       sUserId,
       iUserId,
     });
-    return res.json(m);
+    return res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+    return nxt(error);
+  }
+};
+const getMychats = async (req: Request, res: Response, nxt: NextFunction) => {
+  try {
+    const { chatId, investorUnread, startupUnread, sUserId, iUserId } =
+      req.body;
+
+    await Messages.insert({
+      chatId,
+      investorUnread,
+      startupUnread,
+      sUserId,
+      iUserId,
+    });
+    return res.sendStatus(201);
   } catch (error) {
     console.log(error);
     return nxt(error);
