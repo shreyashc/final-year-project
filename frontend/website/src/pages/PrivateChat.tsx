@@ -41,6 +41,7 @@ const PrivateChat = () => {
 
   const isInvestor = authState.role === "investor";
 
+  console.log(state.otherUserId);
   const addToDB = async () => {
     const res = await apiClient.post("/chat", {
       chatId: chatid,
@@ -62,7 +63,7 @@ const PrivateChat = () => {
     await addDoc(collection(db, chatPath), docData);
     setFormValue("");
     if (isFirstTime) {
-      addToDB();
+      await addToDB();
     }
   };
 

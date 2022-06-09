@@ -78,7 +78,7 @@ export default function InvestorItem({
                 nav(`/private-chat/${userId}i${startupUserId}s`, {
                   state: {
                     otherPerson: displayName,
-                    otherUserId: startupUserId,
+                    otherUserId: userId,
                   },
                 });
               }}
