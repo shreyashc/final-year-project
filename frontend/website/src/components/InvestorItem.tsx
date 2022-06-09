@@ -76,7 +76,10 @@ export default function InvestorItem({
               uppercase
               onClick={() => {
                 nav(`/private-chat/${userId}i${startupUserId}s`, {
-                  state: { otherPerson: displayName },
+                  state: {
+                    otherPerson: displayName,
+                    otherUserId: startupUserId,
+                  },
                 });
               }}
             >

@@ -23,6 +23,7 @@ import {
   PresentationAnalytics,
   Building,
   InfoCircle,
+  MessageDots,
 } from "tabler-icons-react";
 import { apiClient } from "../api/client";
 
@@ -142,6 +143,27 @@ const StartupDashboard = () => {
       >
         <Group align="flex-start">
           <Text>{sd?.startup.shortDesc}</Text>
+          <div>
+            {authState.role === "investor" && (
+              <Button
+                color="green"
+                size="md"
+                variant="light"
+                uppercase
+                onClick={() => {
+                  nav(
+                    `/private-chat/${authState.userId}i${sd?.startup.userId}s`,
+                    {
+                      state: { otherPerson: sd?.startup.displayName },
+                    }
+                  );
+                }}
+              >
+                <MessageDots style={{ marginRight: 5 }} />
+                chat
+              </Button>
+            )}
+          </div>
         </Group>
         <Group>
           <iframe
@@ -291,3 +313,4 @@ const stats = [
     diff: 18,
   },
 ];
+

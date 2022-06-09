@@ -12,6 +12,7 @@ import StartupRoutes from "./routes/startup";
 import StartupRoutesNA from "./routes/startupna";
 import InverstorRoutes from "./routes/inverstor";
 import UpvoteRoutes from "./routes/upvote";
+import MessagesRoutes from "./routes/messages";
 import { requireAuthApi, requireStartup } from "./middleware/authMiddleware";
 const main = async () => {
   const app = express();
@@ -77,6 +78,7 @@ const main = async () => {
   app.use("/api/startups", StartupRoutesNA);
   app.use("/api/investor", InverstorRoutes);
   app.use("/api/upvote", UpvoteRoutes);
+  app.use("/api/chat", MessagesRoutes);
 
   //not found route
   app.use((_req: Request, _res: Response, next: NextFunction) => {
@@ -106,3 +108,4 @@ const main = async () => {
 };
 
 main().catch((err) => console.log(err));
+

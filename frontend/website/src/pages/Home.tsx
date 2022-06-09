@@ -28,6 +28,9 @@ const Home = () => {
         <Link to={"/startups"}>
           <h2>See all startups</h2>
         </Link>
+        <Link to={"/investor/my-chats"}>
+          <h2>My chats Investor</h2>
+        </Link>
         <button
           onClick={() =>
             nav(`/private-chat/38i26s`, {

@@ -12,6 +12,7 @@ import EditInvestorDetails from "./pages/EditInvestorDetails";
 import EditPeople from "./pages/EditPeople";
 import EditStrtupDetails from "./pages/EditStrtupDetails";
 import Home from "./pages/Home";
+import InvestorChats from "./pages/InvestorChats";
 import InvestorDashboard from "./pages/InvestorDashboard";
 import Investors from "./pages/Investors";
 import Login from "./pages/Login";
@@ -38,6 +39,7 @@ function App() {
             <Route path="/signup/investor" element={<InvestorSignup />} />
             <Route path="/startup/dashboard" element={<StartupDashboard />} />
             <Route path="/investor/dashboard" element={<InvestorDashboard />} />
+            <Route path="/investor/my-chats" element={<InvestorChats />} />
             <Route
               path="/investor/edit-details"
               element={<EditInvestorDetails />}
@@ -64,3 +66,4 @@ function App() {
 }
 
 export default App;
+

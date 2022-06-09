@@ -4,3 +4,5 @@ export * from "./Startup";
 export * from "./Category";
 export * from "./Inverstor";
 export * from "./Upvote";
+export * from "./Messages";
+
