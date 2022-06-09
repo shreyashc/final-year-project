@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import httpErrors from "http-errors";
+// import httpErrors from "http-errors";
 import _ from "underscore";
-import { Investor, Messages, User } from "../models/entities";
+import { Messages } from "../models/entities";
 
 const addNewPchat = async (req: Request, res: Response, _nxt: NextFunction) => {
   try {
@@ -23,3 +23,4 @@ const addNewPchat = async (req: Request, res: Response, _nxt: NextFunction) => {
 };
 
 export { addNewPchat };
+
