@@ -1,4 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Investor } from "./Inverstor";
+import { Startup } from "./Startup";
 
 @Entity()
 export class Messages extends BaseEntity {
@@ -13,6 +15,13 @@ export class Messages extends BaseEntity {
 
   @Column({ default: false })
   startupUnread!: string;
+
+  @ManyToMany(() => Investor,(inverstor) => inverstor.messages)
+  investor!: Investor
+  
+  @ManyToMany(() => Startup)
+  @JoinTable()
+  startup!:Startup
 
   @Column()
   sUserId!: number;

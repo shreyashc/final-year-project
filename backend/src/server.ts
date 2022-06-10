@@ -58,7 +58,7 @@ const main = async () => {
     username: env.db.username,
     password: env.db.password,
     logging: env.db.logging,
-    synchronize: env.db.synchronize,
+    synchronize: true,
     entities: [path.join(__dirname, "models/entities/") + "*"],
     ssl: {
       rejectUnauthorized: false,

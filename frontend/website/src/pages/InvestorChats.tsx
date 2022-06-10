@@ -8,9 +8,10 @@ import {
   query,
   QueryDocumentSnapshot,
 } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { apiClient } from "../api/client";
 import { AuthContext } from "../context/authContext";
-import { db } from "../firebase";
+
 
 const InvestorChats = () => {
   const { state: authState } = useContext(AuthContext);
@@ -18,13 +19,13 @@ const InvestorChats = () => {
     useState<QueryDocumentSnapshot<DocumentData>[]>();
   const chatPath = `/privatechat/messages`;
 
+
+
   useEffect(() => {
-    async function getChats() {
-      const docRef = doc(db, chatPath);
-      const docSnap = await getDoc(docRef);
-      console.log(docSnap.data()?.collection);
-    }
-    getChats();
+    apiClient.get("/chat/mychats/")
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+    
   }, []);
   return <div>InvestorChats</div>;
 };
