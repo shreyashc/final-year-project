@@ -11,6 +11,7 @@ import {
 import { useBooleanToggle } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
+import Logout from "./Logout";
 
 const HEADER_HEIGHT = 60;
 
@@ -114,6 +115,7 @@ function Navbar({ links }: HeaderResponsiveProps) {
         <Logo />
         <Group spacing={5} className={classes.links}>
           {items}
+          <Logout className={cx(classes.link, {})} />
         </Group>
         <Burger
           opened={opened}
@@ -126,6 +128,8 @@ function Navbar({ links }: HeaderResponsiveProps) {
           {(styles) => (
             <Paper className={classes.dropdown} withBorder style={styles}>
               {items}
+              {/* <button onClick={logout}>Logout</button> */}
+              <Logout className={cx(classes.link, {})} />
             </Paper>
           )}
         </Transition>

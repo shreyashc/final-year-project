@@ -1,0 +1,17 @@
+.people-itm {
+  display: flex;
+  align-items: center;
+  margin: 5px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px 0 0 2px;
+  max-width: 429px;
+}
+
+.chat-box {
+}
+
+.unread {
+  margin-left: auto;
+}
+

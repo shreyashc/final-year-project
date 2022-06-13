@@ -84,6 +84,12 @@ const PrivateChat = () => {
     return () => unsub();
   }, []);
 
+  // useEffect(() => {
+  //   if (authState.role === "investor") {
+
+  //   }
+  // }, []);
+
   return (
     <>
       <Container size="md" px={20}>

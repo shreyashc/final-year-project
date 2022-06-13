@@ -2,13 +2,10 @@ import {
   BaseEntity,
   Column,
   Entity,
-  JoinColumn,
-  ManyToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
+  JoinColumn, OneToOne,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import { User } from ".";
-import { Messages } from "./Messages";
 
 @Entity()
 export class Investor extends BaseEntity {
@@ -40,9 +37,6 @@ export class Investor extends BaseEntity {
   @JoinColumn()
   user: User;
 
-  @ManyToMany(() => Messages, (m) => m.investor, { onDelete: "CASCADE" })
-  @JoinColumn()
-  messages: Messages[];
 
   @Column()
   userId!: number;

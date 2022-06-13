@@ -14,6 +14,21 @@ import InverstorRoutes from "./routes/inverstor";
 import UpvoteRoutes from "./routes/upvote";
 import MessagesRoutes from "./routes/messages";
 import { requireAuthApi, requireStartup } from "./middleware/authMiddleware";
+const dataSource = new DataSource({
+    type: "postgres",
+    host: env.db.host,
+    port: env.db.port,
+    database: env.db.databaseName,
+    username: env.db.username,
+    password: env.db.password,
+    logging: env.db.logging,
+    synchronize: true,
+    entities: [path.join(__dirname, "models/entities/") + "*"],
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  });
+
 const main = async () => {
   const app = express();
 
@@ -32,7 +47,7 @@ const main = async () => {
           "http://localhost:3000",
         ];
         if (!origin) return callback(null, true);
-        console.log(allowedOrigins.indexOf(origin) === -1);
+        
         if (allowedOrigins.indexOf(origin) === -1) {
           var err = new Error("Origin not allowed");
           return callback(err, false);
@@ -50,21 +65,7 @@ const main = async () => {
   /**
    * typeORM connection
    */
-  const dataSource = new DataSource({
-    type: "postgres",
-    host: env.db.host,
-    port: env.db.port,
-    database: env.db.databaseName,
-    username: env.db.username,
-    password: env.db.password,
-    logging: env.db.logging,
-    synchronize: true,
-    entities: [path.join(__dirname, "models/entities/") + "*"],
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  });
-
+   
   dataSource
     .initialize()
     .then(() => console.log("DataSource Inititlized"))
@@ -109,3 +110,4 @@ const main = async () => {
 
 main().catch((err) => console.log(err));
 
+export {dataSource}
