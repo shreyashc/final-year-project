@@ -16,6 +16,7 @@ import InvestorChats from "./pages/InvestorChats";
 import InvestorDashboard from "./pages/InvestorDashboard";
 import Investors from "./pages/Investors";
 import Login from "./pages/Login";
+import News from "./pages/News";
 import PrivateChat from "./pages/PrivateChat";
 import Signup from "./pages/Signup";
 import StartupDashboard from "./pages/StartupDashboard";
@@ -40,6 +41,7 @@ function App() {
             <Route path="/startup/dashboard" element={<StartupDashboard />} />
             <Route path="/investor/dashboard" element={<InvestorDashboard />} />
             <Route path="/investor/my-chats" element={<InvestorChats />} />
+            <Route path="/news/:page" element={<News />} />
             <Route
               path="/investor/edit-details"
               element={<EditInvestorDetails />}
