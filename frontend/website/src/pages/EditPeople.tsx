@@ -66,8 +66,8 @@ const EditPeople = () => {
 
   useEffect(() => {
     if (sd) {
-      const { p1, b1, p2, b2, p3, b3 } = sd.startup;
-      form.setValues({ p1, b1, p2, b2, p3, b3 });
+      const { p1, b1,r1, p2, b2,r2, p3, b3,r3 } = sd.startup;
+      form.setValues({ p1, b1,r1, p2, b2,r2, p3, b3,r3 });
     }
   }, [sd]);
 
@@ -75,10 +75,13 @@ const EditPeople = () => {
     initialValues: {
       p1: "",
       b1: "",
+      r1:"",
       p2: "",
       b2: "",
+      r2:"",
       p3: "",
       b3: "",
+      r3:"",
     },
   });
   if (loading)
@@ -111,6 +114,16 @@ const EditPeople = () => {
           {...form.getInputProps("b1")}
           mt={15}
         />
+
+        <Textarea
+          required
+          autosize
+          label="Person 1 role"
+          placeholder="Person 1 role"
+          {...form.getInputProps("r1")}
+          mt={15}
+        />
+
         <TextInput
           required
           label="Person 2 Name"
@@ -126,6 +139,15 @@ const EditPeople = () => {
           {...form.getInputProps("b2")}
           mt={15}
         />
+
+<Textarea
+          required
+          autosize
+          label="Person 2 role"
+          placeholder="Person 2 role"
+          {...form.getInputProps("r2")}
+          mt={15}
+        />
         <TextInput
           required
           label="Person 3 Name"
@@ -139,6 +161,15 @@ const EditPeople = () => {
           label="Person 3 bio"
           placeholder="Person 3 bio"
           {...form.getInputProps("b3")}
+          mt={15}
+        />
+
+<Textarea
+          required
+          autosize
+          label="Person 3 role"
+          placeholder="Person 3 role"
+          {...form.getInputProps("r3")}
           mt={15}
         />
 

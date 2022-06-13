@@ -143,7 +143,7 @@ const people_update = async (
       where: { userId: id },
     });
 
-    const sd = _.pick(req.body, ["p1", "b1", "p2", "b2", "p3", "b3"]);
+    const sd = _.pick(req.body, ["p1", "b1","r1", "p2", "b2","r2", "p3", "b3","r3"]);
 
     if (!startupDetails) {
       throw new httpErrors.BadRequest();

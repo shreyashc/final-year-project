@@ -85,14 +85,20 @@ export class Startup extends BaseEntity {
   p1!: string;
   @Column({ default: "Bio 1" })
   b1!: string;
+  @Column({ default: "Role 1" })
+  r1!: string;
 
   @Column({ default: "Person 2" })
   p2!: string;
   @Column({ default: "Bio 2" })
   b2!: string;
+  @Column({ default: "Role 2" })
+  r2!: string;
 
   @Column({ default: "Person 3" })
   p3!: string;
   @Column({ default: "Bio 3" })
   b3!: string;
+  @Column({ default: "Role 3" })
+  r3!: string;
 }

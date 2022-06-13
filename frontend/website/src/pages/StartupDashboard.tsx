@@ -219,21 +219,21 @@ const StartupDashboard = () => {
               <Text size="xl" weight={700}>
                 {sd?.startup.p1}
               </Text>
-              <Text my={10}>Role</Text>
+              <Text my={10}>{sd?.startup.r1}</Text>
               <Text>{sd?.startup.b1}</Text>
             </Paper>
             <Paper style={{ cursor: "pointer" }} shadow="lg" m={20} p="lg">
               <Text size="xl" weight={700}>
                 {sd?.startup.p2}
               </Text>
-              <Text my={10}>Role</Text>
+              <Text my={10}>{sd?.startup.r2}</Text>
               <Text>{sd?.startup.b2}</Text>
             </Paper>
             <Paper style={{ cursor: "pointer" }} shadow="lg" m={20} p="lg">
               <Text size="xl" weight={700}>
                 {sd?.startup.p3}
               </Text>
-              <Text my={10}>Role</Text>
+              <Text my={10}>{sd?.startup.r3}</Text>
               <Text>{sd?.startup.b3}</Text>
             </Paper>
           </SimpleGrid>
@@ -284,10 +284,13 @@ export interface Startup {
   profit: number;
   p1: string;
   b1: string;
+  r1: string;
   p2: string;
   b2: string;
+  r2: string;
   p3: string;
   b3: string;
+  r3: string;
   h1: string;
   d1: string;
   h2: string;
