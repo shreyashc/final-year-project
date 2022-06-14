@@ -6,7 +6,8 @@ import * as ChatController from "../controllers/chatController";
 const router = Router();
 
 router.post("/", ChatController.addNewPchat);
-router.get("/mychats", requireAuthApi,ChatController.getMychats);
+router.get("/mychats", requireAuthApi, ChatController.getMychats);
+router.post("/mark-as-read", requireAuthApi, ChatController.markAsRead);
 
 export default router;
 

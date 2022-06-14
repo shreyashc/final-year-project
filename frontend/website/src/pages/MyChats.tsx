@@ -1,5 +1,4 @@
-import { Avatar, Text, Container, Paper } from "@mantine/core";
-import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import { Avatar, Center, Container, Paper, Text } from "@mantine/core";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Circle } from "tabler-icons-react";
@@ -7,9 +6,11 @@ import { apiClient } from "../api/client";
 import { AuthContext } from "../context/authContext";
 import "../styles/mychats.css";
 
-const InvestorChats = () => {
+const MyChats = () => {
   const [messages, setMessages] = useState<People[]>([]);
   const nav = useNavigate();
+  const { state: authState } = useContext(AuthContext);
+
   useEffect(() => {
     apiClient
       .get<People[]>("/chat/mychats/")
@@ -21,12 +22,22 @@ const InvestorChats = () => {
   }, []);
   return (
     <Container size="md">
-      <Text style={{ fontSize: "2.1rem" }} weight={800} mb={10}>
-        My Messages
-      </Text>
-      <Paper className="chat-box" shadow="md" py={40}>
+      <Paper
+        className="chat-box"
+        shadow="md"
+        py={40}
+        style={{ minHeight: "80vh", background: "#f2f5f3" }}
+      >
+        <Center>
+          <Text style={{ fontSize: "2.1rem" }} weight={800} mb={10}>
+            My Messages
+          </Text>
+        </Center>
         {messages.map((itm) => (
-          <div
+          <Paper
+            shadow="md"
+            radius="sm"
+            m={5}
             className="people-itm"
             key={itm.chatId}
             onClick={() => {
@@ -48,27 +59,32 @@ const InvestorChats = () => {
             <Text size="lg" weight={500}>
               {itm.displayName}
             </Text>
-            {itm.investorUnread && (
+            {authState.role === "investor" && itm.investorUnread && (
               <div className="unread">
                 <Circle fill="#1f7cff" stroke="none" />
               </div>
             )}
-          </div>
+            {authState.role === "startup" && itm.startupUnread && (
+              <div className="unread">
+                <Circle fill="#1f7cff" stroke="none" />
+              </div>
+            )}
+          </Paper>
         ))}
       </Paper>
     </Container>
   );
 };
 
-export default InvestorChats;
+export default MyChats;
 
 interface People {
   displayName: string;
   logoURL: string;
   id: number;
   chatId: string;
-  investorUnread: string;
-  startupUnread: string;
+  investorUnread: boolean;
+  startupUnread: boolean;
   sUserId: number;
   iUserId: number;
 }

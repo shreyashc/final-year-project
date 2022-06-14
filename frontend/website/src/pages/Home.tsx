@@ -29,7 +29,7 @@ const Home = () => {
           <br />
           <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
             <Anchor component={Link} to="/investor/my-chats">
-              Investors chats
+              My chats
             </Anchor>
           </Button>
           <br />
