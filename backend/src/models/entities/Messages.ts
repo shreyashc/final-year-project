@@ -1,6 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  Unique,
+  UpdateDateColumn,
+} from "typeorm";
 
 @Entity()
+@Unique(["sUserId", "iUserId"])
 export class Messages extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,17 +17,18 @@ export class Messages extends BaseEntity {
   chatId!: string;
 
   @Column({ default: false })
-  investorUnread!: string;
+  investorUnread!: boolean;
 
   @Column({ default: false })
-  startupUnread!: string;
-
-  
+  startupUnread!: boolean;
 
   @Column()
   sUserId!: number;
 
   @Column()
   iUserId!: number;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
 

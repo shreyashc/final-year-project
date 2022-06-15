@@ -24,6 +24,7 @@ import { apiClient } from "../api/client";
 import "../chat.css";
 import { AuthContext } from "../context/authContext";
 import { db } from "../firebase";
+
 const PrivateChat = () => {
   const { chatid } = useParams();
   const { state }: any = useLocation();
@@ -37,18 +38,21 @@ const PrivateChat = () => {
   const { state: authState } = useContext(AuthContext);
   const q = query(collection(db, chatPath), orderBy("createdAt"));
 
-  const [isFirstTime, setIsFirstTime] = useState(false);
-
   const isInvestor = authState.role === "investor";
 
-  console.log(state.otherUserId);
   const addToDB = async () => {
-    const res = await apiClient.post("/chat", {
+    await apiClient.post("/chat", {
       chatId: chatid,
       investorUnread: !isInvestor,
       startupUnread: isInvestor,
       sUserId: !isInvestor ? authState.userId : state.otherUserId,
       iUserId: isInvestor ? authState.userId : state.otherUserId,
+    });
+  };
+
+  const markAsRead = async () => {
+    await apiClient.post("/chat/mark-as-read", {
+      chatid: chatid,
     });
   };
 
@@ -62,10 +66,6 @@ const PrivateChat = () => {
     };
     await addDoc(collection(db, chatPath), docData);
     setFormValue("");
-    if (isFirstTime) {
-      await addToDB();
-      setIsFirstTime(false);
-    }
   };
 
   useEffect(() => {
@@ -75,7 +75,9 @@ const PrivateChat = () => {
   useEffect(() => {
     const unsub = onSnapshot(q, (querySnapshot) => {
       if (querySnapshot.docs.length === 0) {
-        setIsFirstTime(true);
+        addToDB();
+      } else {
+        markAsRead();
       }
 
       setMessages(querySnapshot.docs);
@@ -83,12 +85,6 @@ const PrivateChat = () => {
 
     return () => unsub();
   }, []);
-
-  // useEffect(() => {
-  //   if (authState.role === "investor") {
-
-  //   }
-  // }, []);
 
   return (
     <>
