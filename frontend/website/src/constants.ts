@@ -12,6 +12,7 @@ export const navLinks = [
     link: "/dashboard",
     label: "Dashboard",
   },
+  
 ];
 
 export const footerLinks = [
