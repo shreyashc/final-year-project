@@ -3,7 +3,7 @@ import { dataSource } from "../server";
 
 // import httpErrors from "http-errors";
 import _ from "underscore";
-import { Messages } from "../models/entities";
+import { DRoom, Messages } from "../models/entities";
 
 const getMychats = async (_req: Request, res: Response, nxt: NextFunction) => {
   try {
@@ -83,5 +83,34 @@ const markAsRead = async (req: Request, res: Response, nxt: NextFunction) => {
   }
 };
 
-export { addNewPchat, getMychats, markAsRead };
+const createDroom = async (req: Request, res: Response, nxt: NextFunction) => {
+  try {
+    const { roomName } = req.body;
+    const usrId = +res.locals.user.id;
+
+    await DRoom.insert({
+      roomName,
+      createorUserId: usrId,
+      roomId: new Date().getMilliseconds() + roomName,
+    });
+    return res.sendStatus(201);
+  } catch (error) {
+    return nxt(error);
+  }
+};
+
+const getDrooms = async (_req: Request, res: Response, nxt: NextFunction) => {
+  try {
+    const rooms = await DRoom.find({
+      order: {
+        updatedAt: "DESC",
+      },
+    });
+    return res.json(rooms);
+  } catch (error) {
+    return nxt(error);
+  }
+};
+
+export { addNewPchat, getMychats, markAsRead, createDroom, getDrooms };
 
