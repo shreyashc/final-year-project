@@ -23,6 +23,8 @@ import StartupDashboard from "./pages/StartupDashboard";
 import Startups from "./pages/Startups";
 import { AuthProvider } from "./providers/AuthProvider";
 import AxiosProvider from "./providers/AxiosProvider";
+import DRooms from "./pages/DRooms";
+import DRoom from "./pages/DRoom";
 
 function App() {
   return (
@@ -59,6 +61,8 @@ function App() {
             <Route path="/startups" element={<Startups />} />
             <Route path="/startups/:id" element={<StartupDashboard />} />
             <Route path="/private-chat/:chatid" element={<PrivateChat />} />
+            <Route path="/discussion-rooms" element={<DRooms />} />
+            <Route path="/discussion-rooms/:roomid" element={<DRoom />} />
           </Routes>
           <Footer data={footerLinks} />
         </div>
