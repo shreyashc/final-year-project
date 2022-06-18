@@ -270,7 +270,13 @@ const Home = () => {
                 Startup News
               </Anchor>
             </Button>
-
+            <br />
+            <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
+              <Anchor component={Link} to="/Schemes">
+                Schemes
+              </Anchor>
+            </Button>
+            <br />
             <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
               <Anchor component={Link} to="/discussion-rooms">
                 Discussion Rooms
