@@ -241,11 +241,6 @@ const Home = () => {
       </div>
       <div>
         <div>
-          {/* <p>Email:{authState.email}</p>
-    <p>Role:{authState.role}</p>
-    <p>token:{authState.token.substring(0, 20)}......</p>
-    <p>isLoggedIn:{authState.isLoggedIn ? "YES" : "No"}</p>
-    <button onClick={makeRequest}>makeRequest</button> */}
           <Center>
             <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
               <Anchor component={Link} to="/startups">
@@ -352,26 +347,26 @@ const startupdata = [
 const investordata = [
   {
     icon: Truck,
-    title: "Free Worldwide shipping",
+    title: "Free Worldwide shipping1",
     description:
       "As electricity builds up inside its body, it becomes more aggressive. One theory is that the electricity.",
   },
   {
     icon: Certificate,
-    title: "Best Quality Product",
+    title: "Best Quality Product1",
     description:
       "Slakoth’s heart beats just once a minute. Whatever happens, it is content to loaf around motionless.",
   },
   {
     icon: Coin,
-    title: "Very Affordable Pricing",
+    title: "Very Affordable Pricing1",
     description:
       "Thought to have gone extinct, Relicanth was given a name that is a variation of the name of the person who discovered.",
   },
 ];
 
 function FeaturesAsymmetrical({ mockdata }: { mockdata: mockdata[] }) {
-  const items = mockdata.map((item) => <Feature {...item} key={item.title} />);
+  const items = mockdata.map((item, i) => <Feature {...item} key={i} />);
 
   return (
     <Container mt={30} mb={30} size="lg">
@@ -385,3 +380,4 @@ function FeaturesAsymmetrical({ mockdata }: { mockdata: mockdata[] }) {
     </Container>
   );
 }
+
