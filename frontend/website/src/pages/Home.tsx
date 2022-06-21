@@ -52,6 +52,7 @@ const useStyles = createStyles((theme) => ({
   content: {
     position: "relative",
     zIndex: 2,
+    marginTop: 25,
   },
 
   icon: {
@@ -66,11 +67,8 @@ const useStyles = createStyles((theme) => ({
   inner: {
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: theme.spacing.xl * 5,
-    paddingBottom: theme.spacing.xl * 5,
-    height: "100%",
-
-    // background: "url(homebg.webp)",
+    height: "100vh",
+    gap: "20px",
   },
 
   content2: {
@@ -171,8 +169,6 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Home = () => {
-  const nav = useNavigate();
-  const { state: authState, dispatch: authDispatch } = useContext(AuthContext);
   const { classes } = useStyles();
   return (
     <>
@@ -243,6 +239,7 @@ const Home = () => {
             <Image
               width={450}
               height={200}
+              mb={125}
               src="/StartEzy.png"
               className={classes.image}
             />
@@ -401,3 +398,4 @@ function FeaturesAsymmetrical({ mockdata }: { mockdata: mockdata[] }) {
     </Container>
   );
 }
+

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   createStyles,
   Header,
@@ -9,7 +8,9 @@ import {
   Transition,
 } from "@mantine/core";
 import { useBooleanToggle } from "@mantine/hooks";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 import { Logo } from "./Logo";
 import Logout from "./Logout";
 
@@ -99,6 +100,8 @@ interface HeaderResponsiveProps {
 }
 
 function Navbar({ links }: HeaderResponsiveProps) {
+  const { state: authState } = useContext(AuthContext);
+
   const [opened, toggleOpened] = useBooleanToggle(false);
   const { classes, cx } = useStyles();
 
@@ -115,7 +118,18 @@ function Navbar({ links }: HeaderResponsiveProps) {
         <Logo />
         <Group spacing={5} className={classes.links}>
           {items}
-          <Logout className={cx(classes.link, {})} />
+          {authState.isLoggedIn ? (
+            <Logout className={cx(classes.link, {})} />
+          ) : (
+            <>
+              <Link to="/signup" className={cx(classes.link, {})}>
+                "SignUp"
+              </Link>
+              <Link to="/login" className={cx(classes.link, {})}>
+                "Login"
+              </Link>
+            </>
+          )}
         </Group>
         <Burger
           opened={opened}
@@ -139,3 +153,4 @@ function Navbar({ links }: HeaderResponsiveProps) {
 }
 
 export default Navbar;
+
