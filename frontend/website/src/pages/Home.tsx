@@ -14,7 +14,7 @@ import {
 } from "@mantine/core";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Certificate, Check, Coin, Icon, Truck } from "tabler-icons-react";
+import { AccessPoint, Certificate, Check, Coin, Icon, Messages, Truck, User, UserCheck, Users } from "tabler-icons-react";
 import { AuthContext } from "../context/authContext";
 
 const useStyles = createStyles((theme) => ({
@@ -161,16 +161,14 @@ const Home = () => {
         <Container>
           <div className={classes.inner}>
             <div className={classes.content}>
-              <Title className={classes.title}>
-                A <span className={classes.highlight}>platform </span>for
+                           <Title className={classes.title}>
+                A <span className={classes.highlight}>platform</span>for
                 StartUps <br />
                 and budding Entrepreneurs
               </Title>
-              <Text color="dimmed" mt="md">
-                Build fully functional accessible web applications faster than
-                ever – Mantine includes more than 120 customizable components
-                and hooks to cover you in any situation
-              </Text>
+              {/* <Text color="dimmed" mt="md">
+                One stop platform for StartUps, Investors and Job Seekers. 
+              </Text> */}
 
               <List
                 mt={60}
@@ -183,12 +181,16 @@ const Home = () => {
                 }
               >
                 <List.Item>
-                  <b>StartUps</b> – Easily find Investors and pitch your ideas
-                  infront of them. Take guidance from Experts in one click
+                  <b>StartUps</b> – Easily find Investors and pitch your ideas.
+                  Take guidance from Experts in one click.
+                  Find required human resources.
                 </List.Item>
                 <List.Item>
                   <b>Investors</b> – One place to find and invest into India's
                   leading Startups.
+                </List.Item>
+                <List.Item>
+                  <b>Job Seekers</b> – Easily find and apply for jobs in Startups.
                 </List.Item>
                 <List.Item>
                   <b>Visitors</b> – Have a look into StartUps and get inspired
@@ -330,43 +332,43 @@ interface mockdata {
 
 const startupdata = [
   {
-    icon: Truck,
-    title: "startupdata",
+    icon: AccessPoint,
+    title: "Get Worldwide Exposure",
     description:
-      "As electricity builds up inside its body, it becomes more aggressive. One theory is that the electricity.",
+      "As our investors are present all over the world, connect to them in one touch.",
   },
   {
-    icon: Certificate,
-    title: "startupdata",
+    icon: Messages,
+    title: "Proper Mentorship",
     description:
-      "Slakoth’s heart beats just once a minute. Whatever happens, it is content to loaf around motionless.",
+      "One-to-one communication with investors and mentors to get guidance.",
   },
   {
-    icon: Coin,
-    title: "startupdata",
+    icon: Users  ,
+    title: "Hire Human Resources",
     description:
-      "Thought to have gone extinct, Relicanth was given a name that is a variation of the name of the person who discovered.",
+      "You can easily find required  resources for your Startups.",
   },
 ];
 
 const investordata = [
   {
-    icon: Truck,
-    title: "Free Worldwide shipping",
-    description:
-      "As electricity builds up inside its body, it becomes more aggressive. One theory is that the electricity.",
-  },
-  {
-    icon: Certificate,
-    title: "Best Quality Product",
-    description:
-      "Slakoth’s heart beats just once a minute. Whatever happens, it is content to loaf around motionless.",
-  },
-  {
     icon: Coin,
-    title: "Very Affordable Pricing",
+    title: "Find and Invest Easily",
     description:
-      "Thought to have gone extinct, Relicanth was given a name that is a variation of the name of the person who discovered.",
+      "You can find most of the Startups worldwide and invest easily.",
+  },
+  {
+    icon: Messages,
+    title: "Contact with Startups",
+    description:
+      "Can contact with Startups to help them improve their performance.",
+  },
+  {
+    icon: UserCheck,
+    title: "Easy to use",
+    description:
+      "User friendly interface will allow you to get access to your required features instantly.",
   },
 ];
 
