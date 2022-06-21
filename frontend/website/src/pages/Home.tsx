@@ -12,9 +12,21 @@ import {
   ThemeIcon,
   Title,
 } from "@mantine/core";
+import { url } from "inspector";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AccessPoint, Certificate, Check, Coin, Icon, Messages, Truck, User, UserCheck, Users } from "tabler-icons-react";
+import {
+  AccessPoint,
+  Certificate,
+  Check,
+  Coin,
+  Icon,
+  Messages,
+  Truck,
+  User,
+  UserCheck,
+  Users,
+} from "tabler-icons-react";
 import { AuthContext } from "../context/authContext";
 
 const useStyles = createStyles((theme) => ({
@@ -56,6 +68,7 @@ const useStyles = createStyles((theme) => ({
     justifyContent: "space-between",
     paddingTop: theme.spacing.xl * 4,
     paddingBottom: theme.spacing.xl * 4,
+    // background: "url(homebg.webp)",
   },
 
   content2: {
@@ -161,7 +174,7 @@ const Home = () => {
         <Container>
           <div className={classes.inner}>
             <div className={classes.content}>
-                           <Title className={classes.title}>
+              <Title className={classes.title}>
                 A <span className={classes.highlight}>platform</span>for
                 StartUps <br />
                 and budding Entrepreneurs
@@ -182,15 +195,16 @@ const Home = () => {
               >
                 <List.Item>
                   <b>StartUps</b> – Easily find Investors and pitch your ideas.
-                  Take guidance from Experts in one click.
-                  Find required human resources.
+                  Take guidance from Experts in one click. Find required human
+                  resources.
                 </List.Item>
                 <List.Item>
                   <b>Investors</b> – One place to find and invest into India's
                   leading Startups.
                 </List.Item>
                 <List.Item>
-                  <b>Job Seekers</b> – Easily find and apply for jobs in Startups.
+                  <b>Job Seekers</b> – Easily find and apply for jobs in
+                  Startups.
                 </List.Item>
                 <List.Item>
                   <b>Visitors</b> – Have a look into StartUps and get inspired
@@ -339,10 +353,9 @@ const startupdata = [
       "One-to-one communication with investors and mentors to get guidance.",
   },
   {
-    icon: Users  ,
+    icon: Users,
     title: "Hire Human Resources",
-    description:
-      "You can easily find required  resources for your Startups.",
+    description: "You can easily find required  resources for your Startups.",
   },
 ];
 
@@ -382,4 +395,3 @@ function FeaturesAsymmetrical({ mockdata }: { mockdata: mockdata[] }) {
     </Container>
   );
 }
-
