@@ -258,47 +258,7 @@ const Home = () => {
           <FeaturesAsymmetrical mockdata={investordata} />
         </Container>
       </div>
-      <div>
-        <div>
-          <Center>
-            <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
-              <Anchor component={Link} to="/startups">
-                All Startups
-              </Anchor>
-            </Button>
-            <br />
-            <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
-              <Anchor component={Link} to="/investors">
-                All Investors
-              </Anchor>
-            </Button>
-            <br />
-            <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
-              <Anchor component={Link} to="/investor/my-chats">
-                My chats
-              </Anchor>
-            </Button>
-            <br />
-            <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
-              <Anchor component={Link} to="/news/1">
-                Startup News
-              </Anchor>
-            </Button>
-            <br />
-            <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
-              <Anchor component={Link} to="/Schemes">
-                Schemes
-              </Anchor>
-            </Button>
-            <br />
-            <Button color="blue" radius="md" size="xl" mt={20} variant="subtle">
-              <Anchor component={Link} to="/discussion-rooms">
-                Discussion Rooms
-              </Anchor>
-            </Button>
-          </Center>
-        </div>
-      </div>
+      <div></div>
     </>
   );
 };

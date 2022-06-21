@@ -113,20 +113,24 @@ function Navbar({ links }: HeaderResponsiveProps) {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={10} className={classes.root}>
+    <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container className={classes.header}>
         <Logo />
         <Group spacing={5} className={classes.links}>
-          {items}
           {authState.isLoggedIn ? (
-            <Logout className={cx(classes.link, {})} />
+            <>
+              <Link to="/dashboard" className={cx(classes.link, {})}>
+                Dashboard
+              </Link>
+              <Logout className={cx(classes.link, {})} />
+            </>
           ) : (
             <>
               <Link to="/signup" className={cx(classes.link, {})}>
-                "SignUp"
+                SignUp
               </Link>
               <Link to="/login" className={cx(classes.link, {})}>
-                "Login"
+                Login
               </Link>
             </>
           )}

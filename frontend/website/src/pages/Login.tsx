@@ -54,7 +54,7 @@ function Login() {
           token: res.data.token,
         })
       );
-      navigate("/");
+      navigate("/home");
     } catch (error: any) {
       form.setFieldError(
         error.response.data.field,
@@ -123,3 +123,4 @@ function Login() {
 }
 
 export default Login;
+
