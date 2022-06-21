@@ -66,8 +66,10 @@ const useStyles = createStyles((theme) => ({
   inner: {
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: theme.spacing.xl * 4,
-    paddingBottom: theme.spacing.xl * 4,
+    paddingTop: theme.spacing.xl * 5,
+    paddingBottom: theme.spacing.xl * 5,
+    height: "100%",
+
     // background: "url(homebg.webp)",
   },
 
@@ -162,6 +164,10 @@ const useStyles = createStyles((theme) => ({
     marginBottom: theme.spacing.md,
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
   },
+
+  all: {
+    // backgroundColor: "#f59b42",
+  },
 }));
 
 const Home = () => {
@@ -170,7 +176,7 @@ const Home = () => {
   const { classes } = useStyles();
   return (
     <>
-      <div>
+      <div className={classes.all}>
         <Container>
           <div className={classes.inner}>
             <div className={classes.content}>
