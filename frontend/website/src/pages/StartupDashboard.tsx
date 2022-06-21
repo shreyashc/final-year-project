@@ -16,7 +16,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Edit,
   ExternalLink,
@@ -24,6 +24,7 @@ import {
   Building,
   InfoCircle,
   MessageDots,
+  Briefcase,
 } from "tabler-icons-react";
 import { apiClient } from "../api/client";
 
@@ -253,7 +254,18 @@ const StartupDashboard = () => {
             </Accordion.Item>
           </Accordion>
         </Tabs.Tab>
+        <Tabs.Tab
+          label="Jobs"
+          mr={15}
+          icon={<Briefcase size={35} />}
+        >
+          <Anchor component={Link} to="/AddJobs">
+          Add new job
+        </Anchor>
+      </Tabs.Tab>
       </Tabs>
+
+      
     </Container>
   );
 };

@@ -26,6 +26,7 @@ import AxiosProvider from "./providers/AxiosProvider";
 import Schemes from "./pages/Schemes";
 import DRooms from "./pages/DRooms";
 import DRoom from "./pages/DRoom";
+import AddJobs from "./pages/AddJobs";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route path="/investor/dashboard" element={<InvestorDashboard />} />
             <Route path="/investor/my-chats" element={<MyChats />} />
             <Route path="/news/:page" element={<News />} />
+            <Route path="/AddJobs" element={<AddJobs />} />
             <Route
               path="/investor/edit-details"
               element={<EditInvestorDetails />}
