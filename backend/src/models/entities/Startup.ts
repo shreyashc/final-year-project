@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from ".";
+
 import { Upvote } from "./Upvote";
 
 @Entity()
@@ -101,4 +102,6 @@ export class Startup extends BaseEntity {
   b3!: string;
   @Column({ default: "Role 3" })
   r3!: string;
+
+
 }

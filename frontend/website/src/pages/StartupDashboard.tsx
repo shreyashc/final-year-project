@@ -13,6 +13,7 @@ import {
   Tabs,
   Text,
 } from "@mantine/core";
+import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
@@ -37,6 +38,8 @@ const StartupDashboard = () => {
   const isVisitor = id;
   const path = id ? `startups/${id}` : "startup/dashboard/";
   const [sd, setStartupDetails] = useState<startupDetails>();
+
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [numPages, setNumPages] = useState(null);
@@ -92,6 +95,20 @@ const StartupDashboard = () => {
   };
   useEffect(() => {
     getDetails();
+  }, []);
+
+  const getJobs = () => {
+    apiClient
+      .get<Job[]>("/jobs")
+      .then((res) => {
+        setJobs(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getJobs();
   }, []);
 
   if (loading)
@@ -254,18 +271,40 @@ const StartupDashboard = () => {
             </Accordion.Item>
           </Accordion>
         </Tabs.Tab>
-        <Tabs.Tab
-          label="Jobs"
-          mr={15}
-          icon={<Briefcase size={35} />}
-        >
-          <Anchor component={Link} to="/AddJobs">
-          Add new job
-        </Anchor>
-      </Tabs.Tab>
-      </Tabs>
+        <Tabs.Tab label="Jobs" mr={15} icon={<Briefcase size={35} />}>
+          <Accordion iconPosition="right">
+            {jobs.map((job) => (
+              <Accordion.Item label={job.title} key={job.id}>
+                <Paper>
+                  <Text weight={600}>Description:</Text>
+                  <Text>{job.description}</Text>
+                  <Text weight={600} mt={15}>
+                    Experience:
+                  </Text>
+                  <Text>{job.experience}</Text>
+                  <Text weight={600} mt={15}>
+                    Salary:
+                  </Text>
 
-      
+                  <Text>{job.salary}</Text>
+                  <Text weight={600} mt={15}>
+                    Apply before:
+                  </Text>
+
+                  <Text>{moment(job.applyby).format("MMM Do YY")}</Text>
+                </Paper>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+          <Center>
+            <Button variant="subtle" fullWidth mt={20}>
+              <Anchor component={Link} to="/AddJobs">
+                Add new job
+              </Anchor>
+            </Button>
+          </Center>
+        </Tabs.Tab>
+      </Tabs>
     </Container>
   );
 };
@@ -329,3 +368,14 @@ const stats = [
   },
 ];
 
+interface Job {
+  id: number;
+  description: string;
+  title: string;
+  experience: string;
+  salary: string;
+  applyby: Date;
+  userid: number;
+  createdAt: Date;
+  updatedAt: Date;
+}

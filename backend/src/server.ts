@@ -6,7 +6,7 @@ import { DataSource } from "typeorm";
 // import * as path from "path";
 import { env } from "./env";
 import * as path from "path";
-
+import JobRoutes from "./routes/jobs";
 import AuthRoutes from "./routes/auth";
 import StartupRoutes from "./routes/startup";
 import StartupRoutesNA from "./routes/startupna";
@@ -80,7 +80,7 @@ const main = async () => {
   app.use("/api/investor", InverstorRoutes);
   app.use("/api/upvote", UpvoteRoutes);
   app.use("/api/chat", MessagesRoutes);
-
+  app.use("/api/jobs", JobRoutes);
   //not found route
   app.use((_req: Request, _res: Response, next: NextFunction) => {
     next(new httpErrors.NotFound());

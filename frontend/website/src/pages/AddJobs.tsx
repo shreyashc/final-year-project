@@ -11,6 +11,7 @@ import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { apiClient } from "../api/client";
 import { startupDetails } from "./StartupDashboard";
 
@@ -36,17 +37,19 @@ const AddJobs = () => {
   const [updating, setUpdating] = useState(false);
 
   const [error, setError] = useState(false);
-  const updateDetails = (data: any) => {
+  const navigate = useNavigate();
+  const addJobs = (data: any) => {
     setUpdating(true);
     apiClient
-      .put("/startup/update-highlights/", data)
+      .post("/jobs", data)
       .then((res) => {
         showNotification({
           title: "Notification",
-          message: "Successfully updated.",
+          message: "Successfully added.",
           autoClose: 1000,
           color: "green",
         });
+        navigate("/startup/dashboard");
       })
       .catch((err) => {
         console.log(err);
@@ -61,24 +64,14 @@ const AddJobs = () => {
         setUpdating(false);
       });
   };
-  useEffect(() => {
-    getDetails();
-  }, []);
-
-  // useEffect(() => {
-  //   if (sd) {
-  //     const { h1, d1, h2, d2, h3, d3 } = sd.startup;
-  //     form.setValues({ h1, d1, h2, d2, h3, d3 });
-  //   }
-  // }, [sd]);
 
   const form = useForm({
     initialValues: {
-      Title: "",
-      Description: "",
-      Experience: "",
-      Salary:"",
-      Applyby: "",
+      title: "",
+      description: "",
+      experience: "",
+      salary: "",
+      applyby: "",
     },
   });
   if (loading)
@@ -95,12 +88,12 @@ const AddJobs = () => {
     );
   return (
     <Container size="md">
-      <form onSubmit={form.onSubmit((values) => updateDetails(values))}>
+      <form onSubmit={form.onSubmit((values) => addJobs(values))}>
         <TextInput
           required
           label="Job title"
           placeholder="Title"
-          {...form.getInputProps("Title")}
+          {...form.getInputProps("title")}
         />
 
         <Textarea
@@ -108,26 +101,29 @@ const AddJobs = () => {
           autosize
           label="Description"
           placeholder="Description"
-          {...form.getInputProps("Description")}
+          {...form.getInputProps("description")}
           mt={15}
         />
         <TextInput
           required
           label="Experience"
           placeholder="Experience"
-          {...form.getInputProps("Experience")}
+          {...form.getInputProps("experience")}
         />
 
-    <Textarea
+        <Textarea
           required
           autosize
           label="Salary"
           placeholder="Salary"
-          {...form.getInputProps("Salary")}
+          {...form.getInputProps("salary")}
           mt={15}
         />
-        <DatePicker placeholder="Select date" label="Apply by" required 
-          {...form.getInputProps("Applyby")}
+        <DatePicker
+          placeholder="Select date"
+          label="Apply by"
+          required
+          {...form.getInputProps("applyby")}
         />
 
         <Button
