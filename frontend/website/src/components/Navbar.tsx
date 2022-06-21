@@ -119,6 +119,9 @@ function Navbar({ links }: HeaderResponsiveProps) {
         <Group spacing={5} className={classes.links}>
           {authState.isLoggedIn ? (
             <>
+              <Link to="/home" className={cx(classes.link, {})}>
+                Home
+              </Link>
               <Link to="/dashboard" className={cx(classes.link, {})}>
                 Dashboard
               </Link>
@@ -145,9 +148,32 @@ function Navbar({ links }: HeaderResponsiveProps) {
         <Transition transition="pop-top-right" duration={200} mounted={opened}>
           {(styles) => (
             <Paper className={classes.dropdown} withBorder style={styles}>
-              {items}
-              {/* <button onClick={logout}>Logout</button> */}
-              <Logout className={cx(classes.link, {})} />
+              {authState.isLoggedIn ? (
+                <>
+                  <Link to="/home" className={cx(classes.link, {})}>
+                    Home
+                  </Link>
+                  <Link to="/dashboard" className={cx(classes.link, {})}>
+                    Dashboard
+                  </Link>
+                  <Link to="/my-chats" className={cx(classes.link, {})}>
+                    My Messages
+                  </Link>
+                  <Link to="/discussion-rooms" className={cx(classes.link, {})}>
+                    Discussion Rooms
+                  </Link>
+                  <Logout className={cx(classes.link, {})} />
+                </>
+              ) : (
+                <>
+                  <Link to="/signup" className={cx(classes.link, {})}>
+                    SignUp
+                  </Link>
+                  <Link to="/login" className={cx(classes.link, {})}>
+                    Login
+                  </Link>
+                </>
+              )}
             </Paper>
           )}
         </Transition>

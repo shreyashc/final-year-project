@@ -243,6 +243,35 @@ const NewHome = () => {
                 </Button>
               </>
             )}
+
+            {authState.role === "admin" && (
+              <>
+                <Button
+                  size="md"
+                  mr={8}
+                  variant="subtle"
+                  className={classes.control}
+                  mt={40}
+                  onClick={() => {
+                    nav("/mamage-startups");
+                  }}
+                >
+                  Manage Startups
+                </Button>
+                <Button
+                  size="md"
+                  mr={8}
+                  variant="subtle"
+                  className={classes.control}
+                  mt={40}
+                  onClick={() => {
+                    nav("/manage-investors");
+                  }}
+                >
+                  Manage Investors
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </Container>
