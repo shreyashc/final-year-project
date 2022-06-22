@@ -43,6 +43,30 @@ const dashboad_get = async (
   }
 };
 
+const details_investors_get = async (
+  req: Request,
+  res: Response,
+  _nxt: NextFunction
+) => {
+  try {
+    const id = +req.params.id;
+
+    const investorDetails = await User.findOne({
+      where: { id },
+      relations: ["investor"],
+    });
+
+    if (!investorDetails) throw new httpErrors.NotFound();
+
+    const { password, ...investorDetailsDto } = investorDetails;
+
+    return res.json(investorDetailsDto);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+};
+
 const details_update = async (
   req: Request,
   res: Response,
@@ -116,4 +140,11 @@ const logo_update = async (
   }
 };
 
-export { all_investors_get, dashboad_get, details_update, logo_update };
+export {
+  all_investors_get,
+  dashboad_get,
+  details_update,
+  logo_update,
+  details_investors_get,
+};
+

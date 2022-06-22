@@ -2,8 +2,9 @@ import {
   BaseEntity,
   Column,
   Entity,
-  JoinColumn, OneToOne,
-  PrimaryGeneratedColumn
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from ".";
 
@@ -37,7 +38,10 @@ export class Investor extends BaseEntity {
   @JoinColumn()
   user: User;
 
-
   @Column()
   userId!: number;
+
+  @Column({ default: false })
+  approved!: boolean;
 }
+

@@ -8,6 +8,8 @@ const router = Router();
 
 router.get("/", InvestorController.all_investors_get);
 
+router.get("/details/:id", InvestorController.details_investors_get);
+
 router.get("/dashboard", requireAuthApi, InvestorController.dashboad_get);
 
 router.put(
@@ -24,3 +26,4 @@ router.post(
 );
 
 export default router;
+

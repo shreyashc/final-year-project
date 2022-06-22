@@ -6,28 +6,29 @@ import { DataSource } from "typeorm";
 // import * as path from "path";
 import { env } from "./env";
 import * as path from "path";
-import JobRoutes from "./routes/jobs";
 import AuthRoutes from "./routes/auth";
 import StartupRoutes from "./routes/startup";
 import StartupRoutesNA from "./routes/startupna";
 import InverstorRoutes from "./routes/inverstor";
 import UpvoteRoutes from "./routes/upvote";
 import MessagesRoutes from "./routes/messages";
+import JobRoutes from "./routes/jobs";
+import AdminRoutes from "./routes/admin";
 import { requireAuthApi, requireStartup } from "./middleware/authMiddleware";
 const dataSource = new DataSource({
-    type: "postgres",
-    host: env.db.host,
-    port: env.db.port,
-    database: env.db.databaseName,
-    username: env.db.username,
-    password: env.db.password,
-    logging: env.db.logging,
-    synchronize: true,
-    entities: [path.join(__dirname, "models/entities/") + "*"],
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  });
+  type: "postgres",
+  host: env.db.host,
+  port: env.db.port,
+  database: env.db.databaseName,
+  username: env.db.username,
+  password: env.db.password,
+  logging: env.db.logging,
+  synchronize: true,
+  entities: [path.join(__dirname, "models/entities/") + "*"],
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 const main = async () => {
   const app = express();
@@ -45,9 +46,10 @@ const main = async () => {
         const allowedOrigins = [
           "http://localhost:4000",
           "http://localhost:3000",
+          "http://127.0.0.1:3000",
         ];
         if (!origin) return callback(null, true);
-        
+
         if (allowedOrigins.indexOf(origin) === -1) {
           var err = new Error("Origin not allowed");
           return callback(err, false);
@@ -65,7 +67,7 @@ const main = async () => {
   /**
    * typeORM connection
    */
-   
+
   dataSource
     .initialize()
     .then(() => console.log("DataSource Inititlized"))
@@ -81,6 +83,7 @@ const main = async () => {
   app.use("/api/upvote", UpvoteRoutes);
   app.use("/api/chat", MessagesRoutes);
   app.use("/api/jobs", JobRoutes);
+  app.use("/api/admin", AdminRoutes);
   //not found route
   app.use((_req: Request, _res: Response, next: NextFunction) => {
     next(new httpErrors.NotFound());
@@ -110,4 +113,5 @@ const main = async () => {
 
 main().catch((err) => console.log(err));
 
-export {dataSource}
+export { dataSource };
+

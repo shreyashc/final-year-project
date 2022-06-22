@@ -16,9 +16,10 @@ import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Check, CircleMinus } from "tabler-icons-react";
 import { apiClient } from "../api/client";
+import { InvestorsT } from "./Investors";
 import { StartupT } from "./Startups";
-const ManageStartups = () => {
-  const [startups, setStartups] = useState<StartupT[]>([]);
+const ManageInvestors = () => {
+  const [startups, setStartups] = useState<InvestorsT[]>([]);
 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -27,7 +28,7 @@ const ManageStartups = () => {
   useEffect(() => {
     setLoading(true);
     apiClient
-      .get<StartupT[]>("startups")
+      .get<InvestorsT[]>("investor")
       .then((res) => {
         setStartups(res.data);
       })
@@ -63,18 +64,14 @@ const ManageStartups = () => {
         ]}
       >
         {startups.map((itm) => (
-          <StartupItem
-            onClick={() => nav("/startups/" + itm.id)}
-            {...itm}
-            key={itm.id}
-          />
+          <StartupItem {...itm} key={itm.id} />
         ))}
       </SimpleGrid>
     </Container>
   );
 };
 
-export default ManageStartups;
+export default ManageInvestors;
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -96,16 +93,14 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const StartupItem: FC<StartupItemProps> = ({
+const StartupItem: FC<InvestorsT> = ({
   displayName,
-  website,
-  id,
-  amountRaised,
-
-  logoURL,
-  upvalue,
-  onClick,
+  contactEmail: website,
+  userId: id,
+  pfpURL: logoURL,
+  iType,
 }: StartupItemProps) => {
+  const nav = useNavigate();
   const { classes } = useStyles();
 
   return (
@@ -116,7 +111,7 @@ const StartupItem: FC<StartupItemProps> = ({
       className={classes.card}
       style={{ cursor: "pointer" }}
     >
-      <Card.Section mb="sm" onClick={onClick}>
+      <Card.Section mb="sm" onClick={() => nav("/investors/" + id)}>
         <Image src={logoURL} alt={displayName} height={180} />
       </Card.Section>
 
@@ -126,13 +121,11 @@ const StartupItem: FC<StartupItemProps> = ({
       <Text size="xs" color="dimmed">
         {website}
       </Text>
-      <Badge color="dark" radius="lg" variant="outline" mt="xs">
-        {amountRaised ? amountRaised : "NA"}
-      </Badge>
+
       <Card.Section className={classes.footer}>
         <Group position="apart">
           <Text size="xs" color="dimmed">
-            {upvalue} {" Upvotes"}
+            {iType}
           </Text>
           <Menu>
             <Menu.Label>Controls</Menu.Label>
@@ -162,25 +155,17 @@ const StartupItem: FC<StartupItemProps> = ({
 interface StartupItemProps {
   id: number;
   displayName: string;
-  website: string;
-  userId: number;
   contactEmail: string;
   shortDesc: string;
-  amountRaised: string;
-  ytURL: string;
-  logoURL: string;
-  pithPdfURL: string;
-  revenue: string;
-  profit: string;
-  upvalue: number;
-  // up: (sid: number) => void;
-  // upRemove: (sid: number) => void;
-  onClick: React.MouseEventHandler<HTMLDivElement>;
+  iType: string;
+  investedIn: string;
+  pfpURL: string;
+  userId: number;
 }
 
 const approve = (id: any) => {
   apiClient
-    .post("/admin/approve-startup/", {
+    .post("/admin/approve-investor/", {
       userid: id,
     })
     .then(() => {
@@ -203,7 +188,7 @@ const approve = (id: any) => {
 
 const revokeApproval = (id: any) => {
   apiClient
-    .post("/admin/revoke-approve-startup/", {
+    .post("/admin/revoke-approve-investor/", {
       userid: id,
     })
     .then(() => {

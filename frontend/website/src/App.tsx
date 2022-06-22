@@ -29,6 +29,8 @@ import DRoom from "./pages/DRoom";
 import AddJobs from "./pages/AddJobs";
 import NewHome from "./pages/NewHome";
 import ManageStartups from "./pages/ManageStartups";
+import ManageInvestors from "./pages/ManageInvestors";
+import InvestorDetails from "./pages/InvestorDetails";
 
 function App() {
   return (
@@ -63,6 +65,7 @@ function App() {
               element={<EditHighlights />}
             />
             <Route path="/investors" element={<Investors />} />
+            <Route path="/investors/:id" element={<InvestorDetails />} />
             <Route path="/startups" element={<Startups />} />
             <Route path="/startups/:id" element={<StartupDashboard />} />
             <Route path="/private-chat/:chatid" element={<PrivateChat />} />
@@ -71,6 +74,7 @@ function App() {
             <Route path="/discussion-rooms/:roomid" element={<DRoom />} />
             <Route path="/home" element={<NewHome />} />
             <Route path="/manage-startups" element={<ManageStartups />} />
+            <Route path="/manage-investors" element={<ManageInvestors />} />
           </Routes>
           <Footer data={footerLinks} />
         </div>
