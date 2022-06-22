@@ -253,7 +253,7 @@ const NewHome = () => {
                   className={classes.control}
                   mt={40}
                   onClick={() => {
-                    nav("/mamage-startups");
+                    nav("/manage-startups");
                   }}
                 >
                   Manage Startups

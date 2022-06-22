@@ -28,6 +28,7 @@ import DRooms from "./pages/DRooms";
 import DRoom from "./pages/DRoom";
 import AddJobs from "./pages/AddJobs";
 import NewHome from "./pages/NewHome";
+import ManageStartups from "./pages/ManageStartups";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
             <Route path="/discussion-rooms" element={<DRooms />} />
             <Route path="/discussion-rooms/:roomid" element={<DRoom />} />
             <Route path="/home" element={<NewHome />} />
+            <Route path="/manage-startups" element={<ManageStartups />} />
           </Routes>
           <Footer data={footerLinks} />
         </div>

@@ -29,7 +29,6 @@ export class Startup extends BaseEntity {
   @Column()
   userId!: number;
 
-
   @Column({ nullable: true })
   contactEmail!: string;
 
@@ -48,7 +47,7 @@ export class Startup extends BaseEntity {
   @OneToMany(() => Upvote, (updoot) => updoot.startup)
   upvotes: Upvote[];
 
-   @Column({ default: false })
+  @Column({ default: false })
   isPremium!: boolean;
 
   @Column({
@@ -103,5 +102,7 @@ export class Startup extends BaseEntity {
   @Column({ default: "Role 3" })
   r3!: string;
 
-
+  @Column({ default: false })
+  approved!: boolean;
 }
+
