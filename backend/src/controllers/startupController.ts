@@ -3,6 +3,7 @@ import { Startup, User } from "../models/entities";
 import httpErrors from "http-errors";
 import _ from "underscore";
 import { getImageURL } from "./utils";
+import { dataSource } from "../server";
 
 const dashboad_get = async (
   _req: Request,
@@ -143,7 +144,17 @@ const people_update = async (
       where: { userId: id },
     });
 
-    const sd = _.pick(req.body, ["p1", "b1","r1", "p2", "b2","r2", "p3", "b3","r3"]);
+    const sd = _.pick(req.body, [
+      "p1",
+      "b1",
+      "r1",
+      "p2",
+      "b2",
+      "r2",
+      "p3",
+      "b3",
+      "r3",
+    ]);
 
     if (!startupDetails) {
       throw new httpErrors.BadRequest();
@@ -230,6 +241,26 @@ const pitch_update = async (
   }
 };
 
+const job_appl_get = async (
+  _req: Request,
+  res: Response,
+  nxt: NextFunction
+) => {
+  try {
+    const id = res.locals.user.id;
+    const queryRunner = await dataSource.createQueryRunner();
+    const q = `select a.*, j.*  from job_seeker j ,job_appl a, startup s where a.sid=s.id and a.appluserid=j."userId" and s."userId"=${id}`;
+    console.log(q);
+
+    const appls = await queryRunner.manager.query(q);
+
+    return res.json(appls);
+  } catch (error) {
+    console.log(error);
+    return nxt(error);
+  }
+};
+
 export {
   dashboad_get,
   details_update,
@@ -239,4 +270,6 @@ export {
   pitch_update,
   startups_get,
   startup_details_get,
+  job_appl_get,
 };
+

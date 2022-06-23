@@ -6,12 +6,14 @@ import { multer } from "../multer";
 
 const router = Router();
 
-router.get("/details/:id", SeekerController.details_investors_get);
+router.get("/details/:id", SeekerController.profile_get);
 
 router.get("/dashboard", requireAuthApi, SeekerController.dashboad_get);
 
 router.put("/update-details", requireAuthApi, SeekerController.details_update);
 router.get("/jobs", SeekerController.jobs_get);
+
+router.post("/apply-job", requireAuthApi, SeekerController.apply_job);
 
 router.post(
   "/update-logo",

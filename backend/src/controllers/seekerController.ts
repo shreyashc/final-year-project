@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import httpErrors from "http-errors";
 import { dataSource } from "../server";
 import _ from "underscore";
-import { JobSeeker, User } from "../models/entities";
+import { JobAppl, JobSeeker, User } from "../models/entities";
 import { getImageURL } from "./utils";
 
 const dashboad_get = async (
@@ -170,6 +170,44 @@ const jobs_get = async (_req: Request, res: Response, nxt: NextFunction) => {
   }
 };
 
+const apply_job = async (req: Request, res: Response, nxt: NextFunction) => {
+  try {
+    const { sid, title } = req.body;
+
+    const appluserid = res.locals.user.id;
+
+    await JobAppl.insert({
+      sid,
+      appluserid,
+      title,
+    });
+
+    return res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+    return nxt(error);
+  }
+};
+
+const profile_get = async (req: Request, res: Response, nxt: NextFunction) => {
+  try {
+    const id = +req.params.id;
+    const seekerDetails = await User.findOne({
+      where: { id },
+      relations: ["jobseeker"],
+    });
+
+    if (!seekerDetails) throw new httpErrors.NotFound();
+
+    const { password, ...seekerDetailsDto } = seekerDetails;
+
+    return res.json(seekerDetailsDto);
+  } catch (error) {
+    console.log(error);
+    return nxt(error);
+  }
+};
+
 export {
   dashboad_get,
   details_update,
@@ -177,5 +215,7 @@ export {
   details_investors_get,
   resume_update,
   jobs_get,
+  apply_job,
+  profile_get,
 };
 

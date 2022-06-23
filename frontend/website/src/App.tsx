@@ -6,34 +6,36 @@ import Navbar from "./components/Navbar";
 import StartupSignup from "./components/StartupSignup";
 import VisitorSignup from "./components/VisitorSignup";
 import { footerLinks, navLinks } from "./constants";
+import AddJobs from "./pages/AddJobs";
 import Dashboard from "./pages/Dashboard";
+import DRoom from "./pages/DRoom";
+import DRooms from "./pages/DRooms";
 import EditHighlights from "./pages/EditHighlights";
 import EditInvestorDetails from "./pages/EditInvestorDetails";
 import EditPeople from "./pages/EditPeople";
 import EditStrtupDetails from "./pages/EditStrtupDetails";
 import Home from "./pages/Home";
-import MyChats from "./pages/MyChats";
 import InvestorDashboard from "./pages/InvestorDashboard";
+import InvestorDetails from "./pages/InvestorDetails";
 import Investors from "./pages/Investors";
+import JobApplications from "./pages/JobApplications";
+import Jobs from "./pages/Jobs";
+import JobseekerDashboard from "./pages/JobseekerDashboard";
+import JobseekerEdit from "./pages/JobseekerEdit";
 import Login from "./pages/Login";
+import ManageInvestors from "./pages/ManageInvestors";
+import ManageStartups from "./pages/ManageStartups";
+import MyChats from "./pages/MyChats";
+import NewHome from "./pages/NewHome";
 import News from "./pages/News";
 import PrivateChat from "./pages/PrivateChat";
+import Schemes from "./pages/Schemes";
+import SeekerProfile from "./pages/SeekerProfile";
 import Signup from "./pages/Signup";
 import StartupDashboard from "./pages/StartupDashboard";
 import Startups from "./pages/Startups";
 import { AuthProvider } from "./providers/AuthProvider";
 import AxiosProvider from "./providers/AxiosProvider";
-import Schemes from "./pages/Schemes";
-import DRooms from "./pages/DRooms";
-import DRoom from "./pages/DRoom";
-import AddJobs from "./pages/AddJobs";
-import NewHome from "./pages/NewHome";
-import ManageStartups from "./pages/ManageStartups";
-import ManageInvestors from "./pages/ManageInvestors";
-import InvestorDetails from "./pages/InvestorDetails";
-import JobseekerDashboard from "./pages/JobseekerDashboard";
-import JobseekerEdit from "./pages/JobseekerEdit";
-import Jobs from "./pages/Jobs";
 
 function App() {
   return (
@@ -50,12 +52,14 @@ function App() {
             <Route path="/signup/visitor" element={<VisitorSignup />} />
             <Route path="/signup/investor" element={<InvestorSignup />} />
             <Route path="/startup/dashboard" element={<StartupDashboard />} />
+            <Route path="/startup/appls" element={<JobApplications />} />
             <Route path="/investor/dashboard" element={<InvestorDashboard />} />
             <Route path="/jobs" element={<Jobs />} />
             <Route
               path="/jobseeker/dashboard"
               element={<JobseekerDashboard />}
             />
+            <Route path="/jobseeker/:id" element={<SeekerProfile />} />
             <Route path="/my-chats" element={<MyChats />} />
             <Route path="/news/:page" element={<News />} />
             <Route path="/AddJobs" element={<AddJobs />} />

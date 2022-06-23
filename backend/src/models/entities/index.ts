@@ -6,4 +6,5 @@ export * from "./Upvote";
 export * from "./Messages";
 export * from "./DRoom";
 export * from "./JobSeeker";
+export * from "./JobAppl";
 

@@ -178,6 +178,18 @@ const NewHome = () => {
                   className={classes.control}
                   mt={40}
                   onClick={() => {
+                    nav("/startup/appls/");
+                  }}
+                >
+                  Job Applications
+                </Button>
+                <Button
+                  size="md"
+                  mr={8}
+                  variant="subtle"
+                  className={classes.control}
+                  mt={40}
+                  onClick={() => {
                     nav("/discussion-rooms");
                   }}
                 >
