@@ -1,7 +1,13 @@
 import { env } from "../env";
 import jwt from "jsonwebtoken";
 import argon2 from "argon2";
-import { Investor, Startup, User, Visitor } from "../models/entities";
+import {
+  Investor,
+  Startup,
+  User,
+  Visitor,
+  JobSeeker,
+} from "../models/entities";
 import multer2 from "multer";
 import firebase from "../firebase/config";
 import { v4 as uuid } from "uuid";
@@ -59,6 +65,11 @@ const signUpUser = async (
       await Startup.create({
         displayName: options.displayName,
         website: options.website,
+        userId: user.id,
+      }).save();
+    } else if (role === "jobseeker") {
+      await JobSeeker.create({
+        displayName: options.displayName,
         userId: user.id,
       }).save();
     }
@@ -167,3 +178,4 @@ const getImageURL = (file: Express.Multer.File): Promise<string> => {
 };
 
 export { generateToken, MAX_AGE, signUpUser, loginUser, getImageURL, multer };
+

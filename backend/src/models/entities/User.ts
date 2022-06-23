@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { Investor } from "./Inverstor";
+import { JobSeeker } from "./JobSeeker";
 import { Startup } from "./Startup";
 import { Upvote } from "./Upvote";
 import { Visitor } from "./Visitor";
@@ -38,6 +39,9 @@ export class User extends BaseEntity {
 
   @OneToOne(() => Investor, (innverstor) => innverstor.user)
   investor: Investor;
+
+  @OneToOne(() => JobSeeker, (j) => j.user)
+  jobseeker: JobSeeker;
 
   @OneToOne(() => Startup, (startup) => startup.user)
   startup: Startup;

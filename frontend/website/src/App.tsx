@@ -31,6 +31,8 @@ import NewHome from "./pages/NewHome";
 import ManageStartups from "./pages/ManageStartups";
 import ManageInvestors from "./pages/ManageInvestors";
 import InvestorDetails from "./pages/InvestorDetails";
+import JobseekerDashboard from "./pages/JobseekerDashboard";
+import JobseekerEdit from "./pages/JobseekerEdit";
 
 function App() {
   return (
@@ -48,6 +50,10 @@ function App() {
             <Route path="/signup/investor" element={<InvestorSignup />} />
             <Route path="/startup/dashboard" element={<StartupDashboard />} />
             <Route path="/investor/dashboard" element={<InvestorDashboard />} />
+            <Route
+              path="/jobseeker/dashboard"
+              element={<JobseekerDashboard />}
+            />
             <Route path="/my-chats" element={<MyChats />} />
             <Route path="/news/:page" element={<News />} />
             <Route path="/AddJobs" element={<AddJobs />} />
@@ -55,6 +61,7 @@ function App() {
               path="/investor/edit-details"
               element={<EditInvestorDetails />}
             />
+            <Route path="/jobseeker/edit-details" element={<JobseekerEdit />} />
             <Route
               path="/startup/edit-details"
               element={<EditStrtupDetails />}

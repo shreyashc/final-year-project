@@ -33,7 +33,7 @@ const VisitorSignup = () => {
     try {
       const res = await axios.post(BASE_URL + "auth/signup", {
         ...values,
-        role: "visitor",
+        role: "jobseeker",
       });
       console.log(res);
       showNotification({
@@ -122,3 +122,4 @@ const VisitorSignup = () => {
 };
 
 export default VisitorSignup;
+

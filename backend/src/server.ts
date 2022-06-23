@@ -13,6 +13,7 @@ import InverstorRoutes from "./routes/inverstor";
 import UpvoteRoutes from "./routes/upvote";
 import MessagesRoutes from "./routes/messages";
 import JobRoutes from "./routes/jobs";
+import SeekerRoutes from "./routes/seeker";
 import AdminRoutes from "./routes/admin";
 import { requireAuthApi, requireStartup } from "./middleware/authMiddleware";
 const dataSource = new DataSource({
@@ -84,6 +85,7 @@ const main = async () => {
   app.use("/api/chat", MessagesRoutes);
   app.use("/api/jobs", JobRoutes);
   app.use("/api/admin", AdminRoutes);
+  app.use("/api/seeker", SeekerRoutes);
   //not found route
   app.use((_req: Request, _res: Response, next: NextFunction) => {
     next(new httpErrors.NotFound());
