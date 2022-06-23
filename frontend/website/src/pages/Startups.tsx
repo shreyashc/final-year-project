@@ -79,7 +79,13 @@ const Startups = () => {
     );
 
   return (
-    <Container size="md">
+    <Container size="md" mt={10}>
+      <Center>
+        <Text style={{ fontSize: "35px" }} weight={800} my={20}>
+          {" "}
+          Startups
+        </Text>
+      </Center>
       <SimpleGrid
         cols={3}
         spacing="xl"
@@ -123,3 +129,4 @@ export interface StartupT {
   upvalue: number;
   profit: string;
 }
+

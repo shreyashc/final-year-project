@@ -39,6 +39,11 @@ const Investors = () => {
 
   return (
     <Container size="md">
+      <Center my={20}>
+        <Text weight={700} style={{ fontSize: "35px" }}>
+          Investors
+        </Text>
+      </Center>
       <div>
         {investors.map((inverstor) => {
           return (

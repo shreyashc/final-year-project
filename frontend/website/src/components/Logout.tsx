@@ -25,10 +25,16 @@ const Logout: FC<IMyProps> = (props) => {
   };
 
   return (
-    <Link to={"/"} {...props} onClick={logout}>
+    <Link
+      to={"/"}
+      {...props}
+      onClick={logout}
+      style={{ color: "#e50808", background: "blanchedalmond" }}
+    >
       Logout
     </Link>
   );
 };
 
 export default Logout;
+

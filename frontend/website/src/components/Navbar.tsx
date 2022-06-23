@@ -14,7 +14,7 @@ import { AuthContext } from "../context/authContext";
 import { Logo } from "./Logo";
 import Logout from "./Logout";
 
-const HEADER_HEIGHT = 60;
+const HEADER_HEIGHT = 70;
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -63,18 +63,19 @@ const useStyles = createStyles((theme) => ({
     padding: "8px 12px",
     borderRadius: theme.radius.sm,
     textDecoration: "none",
+
     color:
       theme.colorScheme === "dark"
         ? theme.colors.dark[0]
         : theme.colors.gray[7],
     fontSize: theme.fontSizes.sm,
-    fontWeight: 500,
+    fontWeight: 700,
 
     "&:hover": {
       backgroundColor:
         theme.colorScheme === "dark"
           ? theme.colors.dark[6]
-          : theme.colors.gray[0],
+          : theme.colors.dark[0],
     },
 
     [theme.fn.smallerThan("sm")]: {
@@ -105,13 +106,6 @@ function Navbar({ links }: HeaderResponsiveProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const { classes, cx } = useStyles();
 
-  const items = links.map((link) => (
-    <Link key={link.label} to={link.link} className={cx(classes.link, {})}>
-      {" "}
-      {link.label}
-    </Link>
-  ));
-
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container className={classes.header}>
@@ -130,10 +124,10 @@ function Navbar({ links }: HeaderResponsiveProps) {
           ) : (
             <>
               <Link to="/signup" className={cx(classes.link, {})}>
-                SignUp
+                Sign Up
               </Link>
               <Link to="/login" className={cx(classes.link, {})}>
-                Login
+                Log In
               </Link>
             </>
           )}
@@ -167,10 +161,10 @@ function Navbar({ links }: HeaderResponsiveProps) {
               ) : (
                 <>
                   <Link to="/signup" className={cx(classes.link, {})}>
-                    SignUp
+                    Sign Up
                   </Link>
                   <Link to="/login" className={cx(classes.link, {})}>
-                    Login
+                    Log In
                   </Link>
                 </>
               )}

@@ -77,7 +77,7 @@ const DRooms = () => {
         </form>
       </Modal>
       <Center>
-        <Text size="xl" weight={800}>
+        <Text style={{ fontSize: "35px" }} weight={800}>
           {" "}
           Discussion Rooms
         </Text>
