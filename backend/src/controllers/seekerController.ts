@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import httpErrors from "http-errors";
+import { dataSource } from "../server";
 import _ from "underscore";
 import { JobSeeker, User } from "../models/entities";
 import { getImageURL } from "./utils";
@@ -155,11 +156,26 @@ const resume_update = async (
   }
 };
 
+const jobs_get = async (_req: Request, res: Response, nxt: NextFunction) => {
+  try {
+    const queryRunner = await dataSource.createQueryRunner();
+    const jobs = await queryRunner.manager.query(
+      `select j.*,s.id as sid, s."displayName", s."userId" as suserid from jobs j, startup s where s."userId" = j.userid;`
+    );
+
+    return res.json(jobs);
+  } catch (error) {
+    console.log(error);
+    return nxt(error);
+  }
+};
+
 export {
   dashboad_get,
   details_update,
   logo_update,
   details_investors_get,
   resume_update,
+  jobs_get,
 };
 

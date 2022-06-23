@@ -11,6 +11,7 @@ router.get("/details/:id", SeekerController.details_investors_get);
 router.get("/dashboard", requireAuthApi, SeekerController.dashboad_get);
 
 router.put("/update-details", requireAuthApi, SeekerController.details_update);
+router.get("/jobs", SeekerController.jobs_get);
 
 router.post(
   "/update-logo",

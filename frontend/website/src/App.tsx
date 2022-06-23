@@ -33,6 +33,7 @@ import ManageInvestors from "./pages/ManageInvestors";
 import InvestorDetails from "./pages/InvestorDetails";
 import JobseekerDashboard from "./pages/JobseekerDashboard";
 import JobseekerEdit from "./pages/JobseekerEdit";
+import Jobs from "./pages/Jobs";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
             <Route path="/signup/investor" element={<InvestorSignup />} />
             <Route path="/startup/dashboard" element={<StartupDashboard />} />
             <Route path="/investor/dashboard" element={<InvestorDashboard />} />
+            <Route path="/jobs" element={<Jobs />} />
             <Route
               path="/jobseeker/dashboard"
               element={<JobseekerDashboard />}

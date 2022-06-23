@@ -127,6 +127,24 @@ const NewHome = () => {
             >
               Dashboard
             </Button>
+
+            {authState.role === "jobseeker" && (
+              <>
+                <Button
+                  size="md"
+                  mr={8}
+                  variant="subtle"
+                  className={classes.control}
+                  mt={40}
+                  onClick={() => {
+                    nav("/jobs");
+                  }}
+                >
+                  View Jobs
+                </Button>
+              </>
+            )}
+
             {authState.role === "startup" && (
               <>
                 <Button
