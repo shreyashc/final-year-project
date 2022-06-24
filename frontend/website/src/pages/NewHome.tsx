@@ -166,6 +166,18 @@ const NewHome = () => {
                   className={classes.control}
                   mt={40}
                   onClick={() => {
+                    nav("/startups");
+                  }}
+                >
+                  View Startups
+                </Button>
+                <Button
+                  size="md"
+                  mr={8}
+                  variant="subtle"
+                  className={classes.control}
+                  mt={40}
+                  onClick={() => {
                     nav("/my-chats");
                   }}
                 >
@@ -310,4 +322,3 @@ const NewHome = () => {
 };
 
 export default NewHome;
-

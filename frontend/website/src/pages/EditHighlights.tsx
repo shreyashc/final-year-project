@@ -150,7 +150,11 @@ const EditHighlights = () => {
           fullWidth
           mt={15}
         >
-          {updating ? <Loader color="white" variant="dots" /> : "Update People"}
+          {updating ? (
+            <Loader color="white" variant="dots" />
+          ) : (
+            "Update Highlights"
+          )}
         </Button>
       </form>
     </Container>

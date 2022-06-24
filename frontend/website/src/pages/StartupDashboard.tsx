@@ -61,7 +61,7 @@ const StartupDashboard = () => {
             email: "",
             role: "",
             createdAt: "",
-            id: 0,
+            id: "0",
             updatedAt: "",
             startup: { ...res.data },
           });
@@ -128,7 +128,7 @@ const StartupDashboard = () => {
               {sd?.startup.displayName}
             </Text>
           </Group>
-          {authState.role === "startup" && +authState.userId == sd?.id && (
+          {authState.role === "startup" && authState.userId === sd?.id && (
             <Button
               variant="subtle"
               size="xl"
@@ -296,13 +296,15 @@ const StartupDashboard = () => {
               </Accordion.Item>
             ))}
           </Accordion>
-          <Center>
-            <Button variant="subtle" fullWidth mt={20}>
-              <Anchor component={Link} to="/AddJobs">
-                Add new job
-              </Anchor>
-            </Button>
-          </Center>
+          {authState.role === "startup" && authState.userId === sd?.id && (
+            <Center>
+              <Button variant="subtle" fullWidth mt={20}>
+                <Anchor component={Link} to="/AddJobs">
+                  Add new job
+                </Anchor>
+              </Button>
+            </Center>
+          )}
         </Tabs.Tab>
       </Tabs>
     </Container>
@@ -312,7 +314,7 @@ const StartupDashboard = () => {
 export default StartupDashboard;
 
 export interface startupDetails {
-  id: number;
+  id: string;
   email: string;
   role: string;
   createdAt: string;

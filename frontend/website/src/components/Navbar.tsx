@@ -126,7 +126,11 @@ function Navbar({ links }: HeaderResponsiveProps) {
               <Link to="/signup" className={cx(classes.link, {})}>
                 Sign Up
               </Link>
-              <Link to="/login" className={cx(classes.link, {})}>
+              <Link
+                to="/login"
+                className={cx(classes.link, {})}
+                style={{ backgroundColor: "#6acf6a", color: "#ffffff" }}
+              >
                 Log In
               </Link>
             </>
@@ -177,4 +181,3 @@ function Navbar({ links }: HeaderResponsiveProps) {
 }
 
 export default Navbar;
-
