@@ -98,7 +98,7 @@ const PrivateChat = () => {
           </Text>
         </Paper>
         <Paper shadow="lg" mt={5}>
-          <ScrollArea style={{ height: "70vh" }} p={20}>
+          <ScrollArea style={{ height: "65vh" }} p={20}>
             {messages &&
               messages.map((msg) => {
                 const data = msg.data();
@@ -167,4 +167,3 @@ function TextMessage({ text, time, fromMe, avatarText }: tmPops) {
 }
 
 export default PrivateChat;
-

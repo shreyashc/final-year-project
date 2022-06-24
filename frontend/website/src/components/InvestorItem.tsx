@@ -86,14 +86,13 @@ export default function InvestorItem({
               <MessageDots style={{ marginRight: 5 }} />
               chat
             </Button>
-            <Button color="gray" size="md" variant="light" uppercase>
+            {/* <Button color="gray" size="md" variant="light" uppercase>
               <UserPlus style={{ marginRight: 5 }} />
               Save
-            </Button>
+            </Button> */}
           </Group>
         </Group>
       </Group>
     </div>
   );
 }
-
