@@ -98,14 +98,25 @@ const StartupDashboard = () => {
   }, []);
 
   const getJobs = () => {
-    apiClient
-      .get<Job[]>("/jobs")
-      .then((res) => {
-        setJobs(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (isVisitor) {
+      apiClient
+        .get<Job[]>("/jobs/" + id)
+        .then((res) => {
+          setJobs(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      apiClient
+        .get<Job[]>("/jobs")
+        .then((res) => {
+          setJobs(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   useEffect(() => {
     getJobs();
@@ -381,3 +392,4 @@ interface Job {
   createdAt: Date;
   updatedAt: Date;
 }
+

@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Center,
   Container,
   Group,
@@ -13,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { CircleDashed, Edit } from "tabler-icons-react";
+import { CircleDashed } from "tabler-icons-react";
 import { apiClient } from "../api/client";
 
 const InvestorDetails = () => {

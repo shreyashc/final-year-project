@@ -126,7 +126,7 @@ export default function Footer({ data }: FooterLinksProps) {
         className={classes.link}
         component="a"
         href={link.link}
-        onClick={(event) => event.preventDefault()}
+        target="_blank"
       >
         {link.label}
       </Text>
@@ -170,3 +170,4 @@ export default function Footer({ data }: FooterLinksProps) {
     </footer>
   );
 }
+

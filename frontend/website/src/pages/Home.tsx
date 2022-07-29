@@ -12,22 +12,18 @@ import {
   ThemeIcon,
   Title,
 } from "@mantine/core";
-import { url } from "inspector";
-import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import {
   AccessPoint,
-  Certificate,
   Check,
   Coin,
   Icon,
   Messages,
   Truck,
-  User,
   UserCheck,
   Users,
 } from "tabler-icons-react";
-import { AuthContext } from "../context/authContext";
 
 const useStyles = createStyles((theme) => ({
   feature: {
@@ -52,7 +48,7 @@ const useStyles = createStyles((theme) => ({
   content: {
     position: "relative",
     zIndex: 2,
-    marginTop: 25,
+    marginTop: 15,
   },
 
   icon: {

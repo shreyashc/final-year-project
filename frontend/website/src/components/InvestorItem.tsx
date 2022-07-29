@@ -1,5 +1,12 @@
-import { Avatar, Button, createStyles, Group, Text } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
+import {
+  Anchor,
+  Avatar,
+  Button,
+  createStyles,
+  Group,
+  Text,
+} from "@mantine/core";
+import { Link, useNavigate } from "react-router-dom";
 import { At, Location, MessageDots, UserPlus } from "tabler-icons-react";
 
 const useStyles = createStyles((theme) => ({
@@ -51,9 +58,15 @@ export default function InvestorItem({
             {iType}
           </Text>
 
-          <Text size="xl" weight={500} className={classes.name}>
-            {displayName}
-          </Text>
+          <Anchor
+            component={Link}
+            to={`/investors/${userId}`}
+            style={{ color: "black" }}
+          >
+            <Text size="xl" weight={500} className={classes.name}>
+              {displayName}
+            </Text>
+          </Anchor>
 
           <Group noWrap spacing={10} mt={3}>
             <At size={16} className={classes.icon} />
@@ -96,3 +109,4 @@ export default function InvestorItem({
     </div>
   );
 }
+

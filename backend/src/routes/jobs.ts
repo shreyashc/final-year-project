@@ -5,6 +5,8 @@ import * as jobController from "../controllers/jobController";
 
 const router = Router();
 
-router.post("/", requireAuthApi,jobController.addJob);
-router.get("/", requireAuthApi,jobController.getJobs);
+router.post("/", requireAuthApi, jobController.addJob);
+router.get("/:sid", jobController.getJobsId);
+router.get("/", requireAuthApi, jobController.getJobs);
 export default router;
+

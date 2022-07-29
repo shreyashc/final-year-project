@@ -12,71 +12,67 @@ export const navLinks = [
     link: "/dashboard",
     label: "Dashboard",
   },
-  
 ];
 
 export const footerLinks = [
-  {
-    title: "About",
-    links: [
-      {
-        label: "Features",
-        link: "#",
-      },
-      {
-        label: "Pricing",
-        link: "#",
-      },
-      {
-        label: "Support",
-        link: "#",
-      },
-      {
-        label: "Forums",
-        link: "#",
-      },
-    ],
-  },
-  {
-    title: "Project",
-    links: [
-      {
-        label: "Contribute",
-        link: "#",
-      },
-      {
-        label: "Media assets",
-        link: "#",
-      },
-      {
-        label: "Changelog",
-        link: "#",
-      },
-      {
-        label: "Releases",
-        link: "#",
-      },
-    ],
-  },
+  // {
+  //   title: "About",
+  //   links: [
+  //     {
+  //       label: "Features",
+  //       link: "#",
+  //     },
+  //     {
+  //       label: "Pricing",
+  //       link: "#",
+  //     },
+  //     {
+  //       label: "Support",
+  //       link: "#",
+  //     },
+  //     {
+  //       label: "Forums",
+  //       link: "#",
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "Project",
+  //   links: [
+  //     {
+  //       label: "Contribute",
+  //       link: "#",
+  //     },
+  //     {
+  //       label: "Media assets",
+  //       link: "#",
+  //     },
+  //     {
+  //       label: "Changelog",
+  //       link: "#",
+  //     },
+  //     {
+  //       label: "Releases",
+  //       link: "#",
+  //     },
+  //   ],
+  // },
   {
     title: "Community",
     links: [
       {
         label: "Join Discord",
-        link: "#",
+        link: "https://discord.com/",
       },
       {
         label: "Follow on Twitter",
-        link: "#",
-      },
-      {
-        label: "Email newsletter",
-        link: "#",
+        link: "https://twitter.com/",
       },
       {
         label: "GitHub discussions",
-        link: "#",
+        link: "https://github.com/",
       },
     ],
   },
 ];
+
